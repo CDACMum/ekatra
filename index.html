@@ -1098,6 +1098,24 @@ html[data-skin=midnight] .fl-next,html[data-skin=midnight] .fl-next-box label{co
 .ck-i{font-size:12.5px;padding:3px 0;cursor:pointer;line-height:1.35}.ck-i:hover{text-decoration:underline}.ck-i.ok::before{content:"✓ ";color:var(--green)}.ck-i.bad{color:var(--red)}
 .ck-note{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
 @media (max-width:900px){.ck-grid{grid-template-columns:1fr}.ck-h{display:none}.ck-p{margin-top:8px;border-top:1px solid var(--line);padding-top:10px}}
+
+/* conferences & events */
+.opp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:12px}
+.opp{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.opp:hover{border-color:var(--p);box-shadow:0 6px 20px rgba(0,0,0,.08)}.opp.past{opacity:.6}
+.opp-top{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}.opp-t{font-weight:650;line-height:1.3}
+.opp-loc{background:color-mix(in srgb,#d97706 16%,var(--mix));color:var(--amber)}
+.opp-f{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:10px}.opp-f .sp{flex:1}.opp-av{display:flex}.opp-av .av{margin-left:-6px;box-shadow:0 0 0 2px var(--surface)}
+html[data-skin=midnight] .opp{background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border-color:rgba(199,210,254,.12)}
+html[data-skin=midnight] .opp:hover{border-color:rgba(217,188,126,.4)}html[data-skin=midnight] .opp-av .av{box-shadow:0 0 0 2px #14143a}
+/* weekly placements */
+.grid.plw{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.plw-k{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 10px}.plw-k div{display:flex;flex-direction:column}.plw-k b{font-size:22px;line-height:1.1}.plw-k b small{font-size:13px;color:var(--muted);font-weight:500}.plw-k span{font-size:11.5px;color:var(--muted)}
+.plw-bar{height:6px;border-radius:4px;background:var(--hover);overflow:hidden;margin-bottom:12px}.plw-bar i{display:block;height:100%;border-radius:4px;background:var(--green)}
+.plw-w{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;align-items:end;height:84px}
+.plw-c{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;height:100%}.plw-c i{display:block;width:70%;max-width:22px;border-radius:4px 4px 0 0;background:color-mix(in srgb,var(--p) 55%,transparent)}
+.plw-c.now i{background:var(--p)}.plw-c .v{font-size:11px;font-weight:600}.plw-c .l{font-size:10px;color:var(--muted);white-space:nowrap}
+html[data-skin=midnight] .plw-c i{background:rgba(217,188,126,.45)}html[data-skin=midnight] .plw-c.now i{background:#d9bc7e}
 </style>
 </head>
 <body>
@@ -1116,7 +1134,7 @@ const CONFIG={
   supabaseUrl:'https://lpovmvchkfbmzpmjvnsg.supabase.co',
   supabaseKey:'sb_publishable_CzaiMY1NttsjtVLPpnU9cA_YqGrBIwS'
 };
-const COLS={teams:'hub_teams',members:'hub_members',tasks:'hub_tasks',events:'hub_events',parts:'hub_parts',activity:'hub_activity',notices:'hub_notices',leaves:'hub_leaves',docs:'hub_docs',inits:'hub_initiatives',batches:'hub_batches',reminders:'hub_reminders',placements:'hub_placements',contacts:'hub_contacts',checks:'hub_checklist',checkins:'hub_checkins',evowners:'hub_evowners'};
+const COLS={teams:'hub_teams',members:'hub_members',tasks:'hub_tasks',events:'hub_events',parts:'hub_parts',activity:'hub_activity',notices:'hub_notices',leaves:'hub_leaves',docs:'hub_docs',inits:'hub_initiatives',batches:'hub_batches',reminders:'hub_reminders',placements:'hub_placements',contacts:'hub_contacts',checks:'hub_checklist',checkins:'hub_checkins',evowners:'hub_evowners',opps:'hub_opps',oppint:'hub_opp_int',placed:'hub_placed'};
 
 /* ---------------- backend (Supabase) ---------------- */
 function makeBackend(){
@@ -1223,6 +1241,7 @@ const ICON={
  alert:sv('<circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>'),
  check:sv('<path d="M20 6 9 17l-5-5"/>'),
  hand:sv('<path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>'),
+ opps:sv('<path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/>'),
  checkin:sv('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/>'),
  readiness:sv('<path d="M9 11l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 17h10"/>'),
  lock:sv('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>'),
@@ -1235,12 +1254,12 @@ const ICON={
  reminders:sv('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3 2 6M22 6l-3-3"/>'),
  placements:sv('<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M2 13h20"/>')
 };
-const ROUTES=[['home','Home'],['tasks','Tasks'],['calendar','Calendar'],['reminders','Reminders'],['checkin','Team check-in'],['batches','Batches'],['initiatives','Initiatives'],['placements','Placements'],['readiness','Batch readiness'],['participation','Participation'],['notices','Notice board'],['leave','Leave & availability'],['docs','Documents'],['reports','Reports'],['insights','Insights'],['teams','Teams'],['people','People'],['timeline','Timeline']];
-const NAV_GROUPS=[[null,['home']],['Work',['tasks','calendar','reminders','checkin']],['Programmes',['batches','readiness','initiatives','placements']],['Team life',['participation','notices','leave']],['Insights & resources',['insights','reports','docs']],['Organisation',['teams','people','timeline']]];
-const NAV_LABEL={leave:'Leave'};
+const ROUTES=[['home','Home'],['tasks','Tasks'],['calendar','Calendar'],['reminders','Reminders'],['checkin','Team check-in'],['batches','Batches'],['initiatives','Initiatives'],['placements','Placements'],['opps','Conferences & events'],['readiness','Batch readiness'],['participation','Participation'],['notices','Notice board'],['leave','Leave & availability'],['docs','Documents'],['reports','Reports'],['insights','Insights'],['teams','Teams'],['people','People'],['timeline','Timeline']];
+const NAV_GROUPS=[[null,['home']],['Work',['tasks','calendar','reminders','checkin']],['Programmes',['batches','readiness','initiatives','placements','opps']],['Team life',['participation','notices','leave']],['Insights & resources',['insights','reports','docs']],['Organisation',['teams','people','timeline']]];
+const NAV_LABEL={leave:'Leave',opps:'Conferences'};
 
 /* ---------------- state ---------------- */
-const S={session:null,teams:[],members:[],tasks:[],events:[],parts:[],activity:[],notices:[],leaves:[],docs:[],inits:[],batches:[],reminders:[],placements:[],contacts:[],checkins:[],evowners:[],loaded:false,ver:0,
+const S={session:null,teams:[],members:[],tasks:[],events:[],parts:[],activity:[],notices:[],leaves:[],docs:[],inits:[],batches:[],reminders:[],placements:[],contacts:[],checkins:[],evowners:[],opps:[],oppint:[],placed:[],loaded:false,ver:0,
  tm:new Map(),mm:new Map(),route:'home',online:true,
  ui:{tf:{team:'',who:'',prio:'',q:'',mine:false,batch:''},tview:'board',tsort:'due',rd:{view:'matrix',done:false,batch:'',track:'',who:'',st:'open'},chkTab:'overview',ck:{off:0,team:''},
   cal:{mode:'month',y:new Date().getFullYear(),m:new Date().getMonth(),sel:today(),teams:[],sessions:true},
@@ -1436,7 +1455,7 @@ function render(){
  $('#pageTitle').textContent=pageTitle();
  renderBell();
  $('#offBar').innerHTML=S.online?'':`<div class="offline">Live updates paused — reconnecting. Changes you make are still saved.</div>`;
- const R={home:viewHome,tasks:viewTasks,calendar:viewCalendar,batches:viewBatches,initiatives:viewInitiatives,participation:viewParticipation,notices:viewNotices,leave:viewLeave,docs:viewDocs,reports:viewReports,insights:viewInsights,reminders:viewReminders,placements:viewPlacements,readiness:viewReadiness,checkin:viewCheckin,teams:viewTeams,people:viewPeople,timeline:viewTimeline}[S.route]||viewHome;
+ const R={home:viewHome,tasks:viewTasks,calendar:viewCalendar,batches:viewBatches,initiatives:viewInitiatives,participation:viewParticipation,notices:viewNotices,leave:viewLeave,docs:viewDocs,reports:viewReports,insights:viewInsights,reminders:viewReminders,placements:viewPlacements,readiness:viewReadiness,checkin:viewCheckin,opps:viewOpps,teams:viewTeams,people:viewPeople,timeline:viewTimeline}[S.route]||viewHome;
  const key=[S.route,S.ui.person,S.ui.batchOpen,S.ui.initOpen,S.ui.teamOpen,S.route==='people'?S.ui.ptab:'',S.route==='home'?S.ui.homeView:'',S.route==='insights'?S.ui.ins.weeks+S.ui.ins.team:''].join('|');const entering=key!==lastViewKey;lastViewKey=key;
  pendingCharts=[];v.innerHTML=R();
  if(entering){v.classList.remove('enter');void v.offsetWidth;v.classList.add('enter');clearTimeout(enterT);enterT=setTimeout(()=>v.classList.remove('enter'),1100);countUp(v)}
@@ -2116,7 +2135,7 @@ function initDetail(i){
  ${can?'':`<div style="margin-top:14px">${viewOnly(i.ownerId)}</div>`}
  ${stagesOf(i).length?`<div style="margin-top:14px"><div class="xs muted" style="margin-bottom:6px">STAGE${can?' — click a stage to move':''}</div>${stageStepper(i,can)}</div>`:''}
  <dl class="kv" style="margin-top:14px"><dt>Owner</dt><dd>${memberOf(i.ownerId)?personLink(memberOf(i.ownerId)):'<span class="od">Not set</span>'}</dd>${(i.responsibilities||[]).some(r=>r.role==='Co-owner'&&memberOf(r.memberId))?`<dt>Co-owner</dt><dd>${(i.responsibilities||[]).filter(r=>r.role==='Co-owner'&&memberOf(r.memberId)).map(r=>personLink(memberOf(r.memberId))).join(', ')}</dd>`:''}${okDate(i.startDate)?`<dt>Started</dt><dd>${fmtDate(i.startDate)}</dd>`:''}${okDate(i.targetDate)?`<dt>Target</dt><dd>${fmtDate(i.targetDate)}</dd>`:''}${i.users?`<dt>Users / reach</dt><dd>${esc(i.users)}</dd>`:''}${i.link?`<dt>Link</dt><dd>${isUrl(i.link)?`<a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.link)}</a>`:esc(i.link)}</dd>`:''}</dl></div>
- <div class="grid two"><div style="display:flex;flex-direction:column;gap:16px"><div class="card pad"><h3>Milestones<span class="c">${ms.filter(x=>x.done).length}/${ms.length}</span><span class="sp"></span>${can?`<button class="btn sm" data-act="msAdd" data-id="${esc(i.id)}">+ Add</button>`:''}</h3>
+ ${oppPanel(i)}<div class="grid two"><div style="display:flex;flex-direction:column;gap:16px"><div class="card pad"><h3>Milestones<span class="c">${ms.filter(x=>x.done).length}/${ms.length}</span><span class="sp"></span>${can?`<button class="btn sm" data-act="msAdd" data-id="${esc(i.id)}">+ Add</button>`:''}</h3>
  ${ms.length?ms.map(x=>`<div class="pb ${x.done?'done':''}"><button class="chk ${x.done?'on':''}" ${can?`data-act="msToggle" data-id="${esc(i.id)}" data-m="${esc(x.id)}"`:'disabled'} aria-label="${x.done?'Mark not done':'Mark done'}: ${esc(x.title)}">${x.done?'✓':''}</button><div class="pt">${esc(x.title)}</div>${memberOf(x.ownerId)?avatar(memberOf(x.ownerId),'sm'):''}<span class="meta ${!x.done&&okDate(x.due)&&x.due<today()?'od':''}">${okDate(x.due)?fmtDay(x.due):''}</span>${can?`<button class="btn sm ghost" data-act="msDel" data-id="${esc(i.id)}" data-m="${esc(x.id)}" aria-label="Remove ${esc(x.title)}">✕</button>`:''}</div>`).join(''):'<div class="empty small">No milestones yet. Break the initiative into a few checkpoints.</div>'}</div>
  <div class="card pad"><h3>Updates</h3>${can?`<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap"><input class="inp" id="iu_t" placeholder="Post an update — progress, decision, blocker…" style="flex:1;min-width:200px" maxlength="600"><select class="inp" id="iu_s" aria-label="Status">${INIT_STATUS.map(s=>`<option ${i.status===s?'selected':''}>${s}</option>`).join('')}</select><button class="btn pri" data-act="initUpd" data-id="${esc(i.id)}">Post</button></div>`:''}
  ${upd.length?upd.slice(0,20).map(u=>`<div class="upd"><div>${esc(u.text)}${u.status?` <span class="pill">${esc(u.status)}</span>`:''}</div><small>${esc(u.byName||'')} · ${ago(+u.at||0)}</small></div>`).join(''):'<div class="small muted">No updates yet.</div>'}</div></div>
@@ -2786,10 +2805,11 @@ function viewPlacements(){const f=S.ui.plc;const list=filteredPlc();const t=toda
  const sum=k=>list.reduce((s,p)=>s+(+p[k]||0),0);const upV=list.filter(p=>okDate(p.visitDate)&&p.visitDate>=t).length;const upD=list.filter(p=>okDate(p.driveDate)&&p.driveDate>=t).length;
  let h=`<div class="toolbar"><input class="inp" placeholder="Search company, sector, role" value="${esc(f.q)}" data-input="plq" id="plq" style="width:220px" aria-label="Search companies">
  <select class="inp" data-change="plbatch" aria-label="Batch"><option value="">All batches</option>${S.batches.map(b=>`<option value="${esc(b.id)}" ${f.batch===b.id?'selected':''}>${esc(b.name)}</option>`).join('')}</select><span style="flex:1"></span>
- <div class="toggle"><button class="${f.view==='board'?'on':''}" data-act="plview" data-v="board">Pipeline</button><button class="${f.view==='table'?'on':''}" data-act="plview" data-v="table">Table</button><button class="${f.view==='batch'?'on':''}" data-act="plview" data-v="batch">Batch record</button><button class="${f.view==='contacts'?'on':''}" data-act="plview" data-v="contacts">Connections${S.contacts.length?` · ${S.contacts.length}`:''}</button></div>
+ <div class="toggle"><button class="${f.view==='board'?'on':''}" data-act="plview" data-v="board">Pipeline</button><button class="${f.view==='table'?'on':''}" data-act="plview" data-v="table">Table</button><button class="${f.view==='weekly'?'on':''}" data-act="plview" data-v="weekly">Weekly by batch</button><button class="${f.view==='batch'?'on':''}" data-act="plview" data-v="batch">Batch record</button><button class="${f.view==='contacts'?'on':''}" data-act="plview" data-v="contacts">Connections${S.contacts.length?` · ${S.contacts.length}`:''}</button></div>
  <button class="btn" data-act="exportPlc">Export</button><button class="btn pri" data-act="newPlacement">+ Company</button></div>
  <div class="small muted" style="margin:-6px 0 14px">Company visits, drives and selections. Choose a stage on each company to move it along the pipeline; every change is kept in its log.</div>
  <!--k--><div class="grid kpis" style="margin-bottom:16px">${kpi('Companies',list.length,'teams','#0d9488')}${kpi('Upcoming visits',upV,'calendar','#0284c7')}${kpi('Upcoming drives',upD,'clock','#d97706')}${kpi('Students appeared',sum('appeared'),'people','#6366f1')}${kpi('Shortlisted',sum('shortlisted'),'tasks','#7c3aed')}${kpi('Selected',sum('selected'),'participation','#16a34a')}</div><!--/k-->`;
+ if(f.view==='weekly')return h.replace(/<!--k-->[\s\S]*<!--\/k-->/,'').replace(/<div class="small muted" style="margin:-6px 0 14px">Company visits[^<]*<\/div>/,'')+viewPlacedWeekly();
  if(f.view==='contacts')return h.replace(/<!--k-->[\s\S]*<!--\/k-->/,'').replace(/<div class="small muted" style="margin:-6px 0 14px">Company visits[^<]*<\/div>/,'<div class="small muted" style="margin:-6px 0 14px">LinkedIn &amp; HR contacts found for placements — from first contact to a drive or referral.</div>')+viewConnections(f);
  if(!S.placements.length)return h+`<div class="card pad empty"><b>No companies yet</b>Add companies you are talking to, visits planned and drives scheduled.${''}<div style="margin-top:12px"><button class="btn pri" data-act="newPlacement">+ Add the first company</button></div></div>`;
  if(!list.length)return h+`<div class="card pad empty">Nothing matches these filters.</div>`;
@@ -3710,6 +3730,146 @@ function openEvOwners(){if(!isAdmin())return;
   const id='t:'+t;const ex=(S.evowners||[]).find(o=>o.id===id);const row={ownerIds:ids,byName:me().name,updatedAt:Date.now()};
   if(await run(()=>ex?BE.update('evowners',id,row):BE.add('evowners',{id,type:t,...row}),`${t}: owner saved`,'evowners')){log(`made ${ids.map(i=>shortName(memberOf(i)?.name||'')).join(', ')} the owner of “${t}” events`,'info');V(r,'#eoBox').innerHTML=draw();wire()}};
 }
+/* =================== CONFERENCES & EVENTS (under an initiative) ===================
+   The initiative owner lists conferences / events (by hand or from Excel). Everyone sees them and marks interest;
+   each person tracks their own paper/attendance from "Interested" to "Published". */
+const OPP_KINDS=['Conference','Event','Summit','Workshop','Hackathon','Competition'];
+const OPP_ROLES=['Submit paper','Poster','Attend','Listener','Help organise','Mentor students'];
+const OPP_STAGES=['Interested','Writing paper','Submitted','Under review','Accepted','Camera-ready','Registered','Attended / presented','Published','Not accepted','Dropped'];
+const OPP_DONE=new Set(['Attended / presented','Published','Not accepted','Dropped']);
+const OPP_HOME='m30-04';
+const oppInit=o=>S.inits.find(i=>i.id===o.initId);
+const canEditOpp=o=>{const i=oppInit(o);return !!i&&canEditInit(i)};
+const oppInts=o=>(S.oppint||[]).filter(x=>x.oppId===o.id&&memberOf(x.memberId));
+const myOppInt=o=>(S.oppint||[]).find(x=>x.oppId===o.id&&x.memberId===myId());
+/* the next date that matters: submission, then registration, then the event itself */
+function oppNext(o){const t=today();for(const[k,l]of[['submitDate','Submit by'],['registerDate','Register by'],['eventDate','Event']])if(okDate(o[k])&&o[k]>=t)return{date:o[k],label:l};return null}
+const oppPast=o=>okDate(o.eventDate)?o.eventDate<today():false;
+function oppDue(o){const n=oppNext(o);if(!n)return '';const d=daysBetween(today(),n.date);return `<span class="pill ${d<=10&&n.label!=='Event'?'p-urgent':''}" title="${esc(n.label)} ${esc(fmtLong(n.date))}">${esc(n.label)} · ${d===0?'today':d===1?'tomorrow':d<=60?d+' days':fmtDate(n.date)}</span>`}
+function looseDate(t){t=String(t||'');let m=t.match(/(\d{1,2})(?:\s*[–\-]\s*\d{1,2})?\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})/);if(m){const mo=MONTHS[m[2].toLowerCase().slice(0,3)];return mo?ok3(+m[3],mo,+m[1]):''}
+ m=t.match(/([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})/);if(m){const mo=MONTHS[m[1].toLowerCase().slice(0,3)];return mo?ok3(+m[3],mo,+m[2]):''}return parseDateCell(t)}
+
+function oppList(rows,showInit){if(!rows.length)return '<div class="empty small">Nothing here yet.</div>';
+ return `<div class="opp-grid">${rows.map(o=>{const ints=oppInts(o);const mine=myOppInt(o);const loc=/mumbai|pune|navi/i.test(o.region+' '+o.venue);
+  return `<div class="opp ${oppPast(o)?'past':''}" data-act="openOpp" data-id="${esc(o.id)}" role="button" tabindex="0"><div class="opp-top"><span class="pill">${esc(o.kind)}</span>${loc?'<span class="pill opp-loc">Mumbai / Pune</span>':''}${oppDue(o)}</div>
+  <div class="opp-t">${esc(o.title)}</div><div class="xs muted">${esc(o.venue||'Venue to be confirmed')}${o.eventText?' · '+esc(o.eventText):''}</div>
+  ${o.publication?`<div class="xs" style="margin-top:6px">📄 ${esc(o.publication.slice(0,110))}</div>`:''}
+  <div class="opp-f"><span class="xs muted">${ints.length?`${ints.length} interested`:'No one yet'}</span><span class="opp-av">${ints.slice(0,5).map(x=>avatar(memberOf(x.memberId),'sm')).join('')}</span><span class="sp"></span>${mine?`<span class="pill s-doing">You · ${esc(mine.stage)}</span>`:`<button class="btn sm" data-act="oppInterest" data-id="${esc(o.id)}">I'm interested</button>`}</div>
+  ${showInit&&oppInit(o)?`<div class="xs muted" style="margin-top:6px">Under ${esc(oppInit(o).name)}</div>`:''}</div>`}).join('')}</div>`}
+
+function oppFilter(rows){const f=S.ui.opp||(S.ui.opp={k:'open',q:''});const q=(f.q||'').toLowerCase();
+ return rows.filter(o=>(!q||(o.title+' '+o.venue+' '+o.publication).toLowerCase().includes(q))&&(
+  f.k==='all'||f.k==='open'&&!oppPast(o)||f.k==='local'&&/mumbai|pune|navi/i.test(o.region+' '+o.venue)&&!oppPast(o)||f.k==='soon'&&(()=>{const n=oppNext(o);return n&&n.label!=='Event'&&daysBetween(today(),n.date)<=30})()||f.k==='mine'&&myOppInt(o)||f.k==='papers'&&/paper|poster/i.test(o.participateAs)&&!oppPast(o)))
+ .sort((a,b)=>(oppNext(a)?.date||'9999').localeCompare(oppNext(b)?.date||'9999'))}
+function oppToolbar(initId){const f=S.ui.opp||(S.ui.opp={k:'open',q:''});const i=S.inits.find(x=>x.id===initId);const can=i&&canEditInit(i);
+ const ks=[['open','Open'],['soon','Deadline in 30 days'],['local','Mumbai / Pune'],['papers','Paper / poster'],['mine','Mine'],['all','All']];
+ return `<div class="toolbar"><input class="inp" placeholder="Search events" value="${esc(f.q||'')}" data-input="oppq" style="width:200px" aria-label="Search events"><div class="toggle">${ks.map(([k,l])=>`<button class="${f.k===k?'on':''}" data-act="oppK" data-v="${k}">${l}</button>`).join('')}</div><span class="sp" style="flex:1"></span>${can?`<button class="btn" data-act="oppImport" data-id="${esc(initId)}">Import Excel</button><button class="btn pri" data-act="oppNew" data-id="${esc(initId)}">+ Add event</button>`:''}</div>`}
+
+/* page: Programmes → Conferences & events (all initiatives) */
+function viewOpps(){const all=S.opps||[];const home=S.inits.find(i=>i.id===OPP_HOME)||S.inits.find(i=>(S.opps||[]).some(o=>o.initId===i.id));
+ const mineN=(S.oppint||[]).filter(x=>x.memberId===myId()&&!OPP_DONE.has(x.stage)).length;
+ let h=`<div class="small muted" style="margin:-6px 0 14px">Conferences, paper calls, summits and competitions${home?` collected under <a href="#initiatives" data-act="openInit" data-id="${esc(home.id)}">${esc(home.name)}</a>`:''}. Mark what you are interested in and keep your own stage up to date — the owner sees who is going where.${mineN?` You are tracking <b>${mineN}</b>.`:''}</div>`;
+ h+=oppToolbar(home?.id||OPP_HOME);
+ if(!all.length)return h+`<div class="card pad empty"><b>No conferences or events listed yet</b>The initiative owner can add them one by one or import an Excel list.</div>`;
+ return h+oppList(oppFilter(all),false)}
+/* panel inside an initiative */
+function oppPanel(i){const rows=(S.opps||[]).filter(o=>o.initId===i.id);const can=canEditInit(i);if(!rows.length&&!(can&&i.id===OPP_HOME))return '';
+ const ints=(S.oppint||[]).filter(x=>rows.some(o=>o.id===x.oppId));const people=new Set(ints.map(x=>x.memberId)).size;const pap=ints.filter(x=>['Submitted','Under review','Accepted','Camera-ready','Registered','Attended / presented','Published'].includes(x.stage)&&/paper|poster/i.test(x.role)).length;
+ return `<div class="card pad" style="margin-bottom:16px"><h3>Conferences & events<span class="c">${rows.length}</span><span class="sp"></span><span class="small muted" style="font-weight:400">${people} people interested · ${pap} papers submitted or further</span></h3>
+ ${oppToolbar(i.id)}${oppList(oppFilter(rows),false)}</div>`}
+
+function openOpp(id){const o=(S.opps||[]).find(x=>x.id===id);if(!o)return;const can=canEditOpp(o);const ints=oppInts(o);const mine=myOppInt(o);
+ const kv=[['Participate as',o.participateAs],['Where',[o.venue,o.region].filter(Boolean).join(' · ')],['Event dates',o.eventText],['Submit work by',o.submitText],['Register by',o.registerText],['Fees',o.fees],['Publication / indexing',o.publication],['What you get',o.outcome],['Who from us',o.whoFrom],['Status',o.status]].filter(x=>x[1]);
+ const body=`<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="pill">${esc(o.kind)}</span>${oppDue(o)}${oppInit(o)?`<span class="pill">${esc(oppInit(o).name)}</span>`:''}</div>
+ <dl class="kv">${kv.map(([k,v])=>`<dt>${esc(k)}</dt><dd style="white-space:pre-wrap">${esc(v)}</dd>`).join('')}${o.source?`<dt>Source</dt><dd>${isUrl(o.source)?`<a href="${esc(o.source)}" target="_blank" rel="noopener">${esc(o.source)}</a>`:esc(o.source)}</dd>`:''}</dl>
+ ${o.notes?`<div class="small" style="white-space:pre-wrap">${esc(o.notes)}</div>`:''}
+ <div class="card pad" style="box-shadow:none;background:var(--surface2)"><h3 style="margin-bottom:8px">${mine?'Your participation':'Are you interested?'}</h3>
+ <div class="row3"><div class="fld"><label for="oi_r">I want to</label><select class="inp" id="oi_r">${OPP_ROLES.map(r=>`<option ${(mine?.role||(/paper/i.test(o.participateAs)?'Submit paper':'Attend'))===r?'selected':''}>${r}</option>`).join('')}</select></div>
+ <div class="fld"><label for="oi_s">Stage</label><select class="inp" id="oi_s">${OPP_STAGES.map(s=>`<option ${(mine?.stage||'Interested')===s?'selected':''}>${s}</option>`).join('')}</select></div>
+ <div class="fld"><label for="oi_p">Paper / poster title</label><input class="inp" id="oi_p" maxlength="200" value="${esc(mine?.paperTitle||'')}" placeholder="If you are submitting"></div></div>
+ <div class="fld"><label for="oi_n">Note (co-authors, students, help needed)</label><input class="inp" id="oi_n" maxlength="400" value="${esc(mine?.note||'')}"></div>
+ <div style="display:flex;gap:8px;justify-content:flex-end">${mine?'<button class="btn" data-oi-x>Withdraw</button>':''}<button class="btn pri" data-oi-s>${mine?'Update':'Count me in'}</button></div></div>
+ <div><h3 style="font-size:14px;margin:4px 0 8px">Who is interested · ${ints.length}</h3>${ints.length?`<div class="list">${ints.sort((a,b)=>OPP_STAGES.indexOf(b.stage)-OPP_STAGES.indexOf(a.stage)).map(x=>{const mm=memberOf(x.memberId);return `<div class="li">${avatar(mm,'sm')}<div class="grow"><div class="t">${esc(mm.name)} <span class="muted small">· ${esc(x.role)}</span></div>${x.paperTitle?`<div class="small">“${esc(x.paperTitle)}”</div>`:''}${x.note?`<div class="xs muted">${esc(x.note)}</div>`:''}</div><span class="pill ${OPP_DONE.has(x.stage)?'s-done':'s-doing'}">${esc(x.stage)}</span></div>`}).join('')}</div>`:'<div class="small muted">No one yet — be the first.</div>'}</div>
+ ${can?'':`<div>${viewOnly(oppInit(o)?.ownerId)}</div>`}`;
+ const m=openModal({title:o.title,wide:true,body,foot:can?`<button class="btn dan" data-del>Delete</button><span class="sp"></span><button class="btn" data-ed>Edit details</button>`:''});const r=m.el;
+ V(r,'[data-oi-s]').onclick=async()=>{const row={role:V(r,'#oi_r').value,stage:V(r,'#oi_s').value,paperTitle:V(r,'#oi_p').value.trim(),note:V(r,'#oi_n').value.trim(),byName:me().name,updatedAt:Date.now()};const iid=o.id+'|'+myId();
+  if(await run(()=>mine?BE.update('oppint',iid,row):BE.add('oppint',{id:iid,oppId:o.id,memberId:myId(),at:Date.now(),...row}),mine?'Updated':'You are on the list','oppint')){log(mine?`${o.title}: now “${row.stage}” (${row.role.toLowerCase()})`:`is interested in ${o.title} — ${row.role.toLowerCase()}`,'info',{teamIds:[oppInit(o)?.teamId].filter(Boolean)});m.close()}};
+ const wx=V(r,'[data-oi-x]');if(wx)wx.onclick=async()=>{if(await run(()=>BE.del('oppint',mine.id),'Withdrawn','oppint'))m.close()};
+ if(!can)return;
+ V(r,'[data-ed]').onclick=()=>{m.close();openOppForm(o,o.initId)};
+ V(r,'[data-del]').onclick=async()=>{if(await confirmBox('Delete this event?',`“<b>${esc(o.title)}</b>” and everyone's interest in it will be removed.`,'Delete')){if(await run(()=>BE.del('opps',o.id),'Deleted','opps')){for(const x of ints)BE.del('oppint',x.id).catch(()=>{});m.close()}}};
+}
+async function oppInterest(id){const o=(S.opps||[]).find(x=>x.id===id);if(!o||myOppInt(o))return openOpp(id);
+ const row={id:o.id+'|'+myId(),oppId:o.id,memberId:myId(),byName:me().name,role:/paper/i.test(o.participateAs)?'Submit paper':'Attend',stage:'Interested',paperTitle:'',note:'',at:Date.now(),updatedAt:Date.now()};
+ if(await run(()=>BE.add('oppint',row),'Marked interested — open it to set your role and stage','oppint'))log(`is interested in ${o.title}`,'info',{teamIds:[oppInit(o)?.teamId].filter(Boolean)})}
+
+function openOppForm(o,initId){const cur=o||{kind:'Conference',initId};
+ const F=(id,l,v,ph='',w='')=>`<div class="fld" ${w}><label for="${id}">${l}</label><input class="inp" id="${id}" maxlength="400" value="${esc(v||'')}" placeholder="${esc(ph)}"></div>`;
+ const body=`${F('o_t','Name *',cur.title,'e.g. SAQC 2027 – Intl Conf on Advanced Computing')}
+ <div class="row3"><div class="fld"><label for="o_k">Kind</label><select class="inp" id="o_k">${OPP_KINDS.map(k=>`<option ${cur.kind===k?'selected':''}>${k}</option>`).join('')}</select></div>${F('o_pa','Participate as',cur.participateAs,'Submit paper + attend')}${F('o_rg','Region',cur.region,'Mumbai / Pune / Online')}</div>
+ <div class="row2">${F('o_v','City & venue',cur.venue,'VJTI, Matunga, Mumbai')}${F('o_src','Link',cur.source,'https://…')}</div>
+ <div class="row3">${F('o_e','Event date(s)',cur.eventText,'8–9 Jan 2027')}${F('o_s','Submit work by',cur.submitText,'10 Dec 2026')}${F('o_r','Register by',cur.registerText,'5 Jan 2027')}</div>
+ <div class="small muted" style="margin:-6px 0 6px">Write dates the way the call says them — Ekatra reads the first date for deadlines and reminders.</div>
+ <div class="row2">${F('o_f','Fees',cur.fees)}${F('o_pub','Publication / indexing',cur.publication,'IEEE Xplore, Springer…')}</div>
+ <div class="row3">${F('o_o','What you get',cur.outcome)}${F('o_w','Who from us',cur.whoFrom,'Faculty, BDA students')}${F('o_st','Status',cur.status,'OPEN')}</div>
+ <div class="fld"><label for="o_n">Notes</label><textarea class="inp" id="o_n" rows="2" maxlength="2000">${esc(cur.notes||'')}</textarea></div><div class="err" id="o_err"></div>`;
+ const m=openModal({title:o?'Edit event':'Add a conference or event',wide:true,body,foot:`<button class="btn" data-c>Cancel</button><button class="btn pri" data-s>${o?'Save':'Add'}</button>`});const r=m.el;V(r,'[data-c]').onclick=m.close;
+ V(r,'.mf [data-s]').onclick=async()=>{const g=k=>V(r,'#'+k).value.trim();const title=g('o_t');if(!title){V(r,'#o_err').textContent='Enter the name.';return}
+  const row={title,kind:g('o_k'),participateAs:g('o_pa'),region:g('o_rg'),venue:g('o_v'),source:g('o_src'),eventText:g('o_e'),eventDate:looseDate(g('o_e')),submitText:g('o_s'),submitDate:looseDate(g('o_s')),registerText:g('o_r'),registerDate:looseDate(g('o_r')),fees:g('o_f'),publication:g('o_pub'),outcome:g('o_o'),whoFrom:g('o_w'),status:g('o_st'),notes:g('o_n'),updatedAt:Date.now()};
+  const ok=await run(()=>o?BE.update('opps',o.id,row):BE.add('opps',{...row,id:uid(),initId:cur.initId,createdBy:myId(),createdAt:Date.now()}),o?'Saved':'Added — everyone can see it now','opps');
+  if(ok){if(!o)log(`listed ${row.kind.toLowerCase()} “${title}”`,'info',{teamIds:[S.inits.find(i=>i.id===cur.initId)?.teamId].filter(Boolean)});m.close()}}}
+
+/* Excel / CSV import: same columns as the conference sheet; headers are matched loosely */
+function openOppImport(initId){
+ const m=openModal({title:'Import conferences & events',wide:true,body:`<div class="small muted">Use a sheet with a header row like: Event · Participate as · Mumbai / Pune? · City & venue · Event date(s) · Submit work by · Register by · Fees · Publication · What you get · Who from us · Status · Source. Rows already in the list (same name) are skipped.</div>
+ <label class="drop" id="od"><input type="file" id="o_file" accept=".xlsx,.xls,.csv" hidden><b>Choose the Excel file</b><br><span class="small">or drop it here</span></label><div id="o_prev"></div>`,foot:`<span class="small muted" id="o_cnt"></span><span class="sp"></span><button class="btn" data-c>Cancel</button><button class="btn pri" data-s disabled>Import</button>`});const r=m.el;V(r,'[data-c]').onclick=m.close;
+ let rows=[];const H={title:/^(event|name|conference|title)/i,participateAs:/particip/i,region:/mumbai|pune|region/i,venue:/venue|city/i,eventText:/event date|^date/i,submitText:/submit/i,registerText:/regist/i,fees:/fee/i,publication:/publication|index/i,outcome:/what you get|outcome/i,whoFrom:/who/i,status:/status/i,source:/source|link|url/i};
+ const take=async f=>{try{let grid;if(/\.csv$/i.test(f.name))grid=parseCSV(await f.text(),',');else{await loadXLSX();const wb=XLSX.read(await f.arrayBuffer(),{type:'array'});grid=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:''})}
+  const hi=grid.findIndex(rw=>rw.some(c=>H.title.test(String(c).trim())));if(hi<0)throw new Error('No “Event” header found.');const hdr=grid[hi].map(c=>String(c).trim());const col={};
+  for(const[k,re]of Object.entries(H)){const i=hdr.findIndex((c,j)=>re.test(c)&&!Object.values(col).includes(j));if(i>=0)col[k]=i}
+  const have=new Set((S.opps||[]).map(o=>o.title.toLowerCase()));
+  rows=grid.slice(hi+1).map(rw=>{const o={};for(const k of Object.keys(H))o[k]=col[k]!=null?String(rw[col[k]]??'').trim():'';return o}).filter(o=>o.title&&!/^#?\d*$/.test(o.title));
+  rows.forEach(o=>{o.dup=have.has(o.title.toLowerCase());o.region=o.region?o.region[0].toUpperCase()+o.region.slice(1).toLowerCase():''});
+  const fresh=rows.filter(o=>!o.dup);V(r,'#o_prev').innerHTML=`<div class="prev"><table class="table"><thead><tr><th>Event</th><th>Dates</th><th>Submit by</th><th>Venue</th><th></th></tr></thead><tbody>${rows.map(o=>`<tr class="${o.dup?'bad':''}"><td>${esc(o.title)}</td><td class="small">${esc(o.eventText)}</td><td class="small">${esc(o.submitText.slice(0,40))}</td><td class="small">${esc(o.venue)}</td><td class="xs">${o.dup?'Already listed':''}</td></tr>`).join('')}</tbody></table></div>`;
+  V(r,'#o_cnt').textContent=`${fresh.length} new · ${rows.length-fresh.length} already listed`;V(r,'.mf [data-s]').disabled=!fresh.length}catch(e){toast(errMsg(e),'error')}};
+ V(r,'#o_file').onchange=e=>e.target.files[0]&&take(e.target.files[0]);const dz=V(r,'#od');dz.ondragover=e=>{e.preventDefault();dz.classList.add('over')};dz.ondragleave=()=>dz.classList.remove('over');dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');e.dataTransfer.files[0]&&take(e.dataTransfer.files[0])};
+ V(r,'.mf [data-s]').onclick=async()=>{const fresh=rows.filter(o=>!o.dup);const kind=t=>/summit/i.test(t)?'Summit':/hackathon/i.test(t)?'Hackathon':/workshop/i.test(t)?'Workshop':/week|gtc|volunteer|\(attend\)/i.test(t)?'Event':'Conference';
+  const out=fresh.map(o=>{const{dup,...x}=o;return{...x,id:uid(),initId,kind:kind(o.title),eventDate:looseDate(o.eventText),submitDate:looseDate(o.submitText),registerDate:looseDate(o.registerText),notes:'',createdBy:myId(),createdAt:Date.now(),updatedAt:Date.now()}});
+  if(await run(()=>BE.addMany('opps',out),`${out.length} events added`,'opps')){log(`imported ${out.length} conferences & events`,'info',{teamIds:[S.inits.find(i=>i.id===initId)?.teamId].filter(Boolean)});m.close()}}}
+
+/* =================== WEEKLY PLACEMENTS PER BATCH =================== */
+const canRecordPlaced=b=>isAdmin()||myTeams().includes('placement')||canEditBatch(b);
+const placedOf=b=>(S.placed||[]).filter(x=>x.batchId===b.id);
+const sumN=a=>a.reduce((s,x)=>s+(+x.count||0),0);
+const courseOf=b=>b.course||b.name;
+function viewPlacedWeekly(){const t=today();const ws=weekStart(t);const ms=t.slice(0,7);
+ const bs=S.batches.filter(b=>batchStatus(b)!=='Cancelled'&&(batchStatus(b)!=='Completed'||placedOf(b).length)).sort((a,b)=>courseOf(a).localeCompare(courseOf(b))||(b.start||'').localeCompare(a.start||''));
+ if(!bs.length)return '<div class="card pad empty"><b>No batches</b>Add a batch to start recording placements.</div>';
+ const weeks=[...Array(8)].map((_,k)=>addDays(ws,-7*(7-k)));
+ const months=(()=>{const st=bs.map(b=>b.start).filter(okDate).sort()[0]||t;const out=[];let d=parseYmd(st.slice(0,7)+'-01');for(let g=0;g<24&&ymd(d).slice(0,7)<=ms;g++){out.push(ymd(d).slice(0,7));d.setMonth(d.getMonth()+1)}return out.slice(-8)})();
+ const wk=(b,w)=>sumN(placedOf(b).filter(x=>x.date>=w&&x.date<addDays(w,7)));const mo=(b,m)=>sumN(placedOf(b).filter(x=>x.date.slice(0,7)===m));
+ const maxW=Math.max(1,...bs.flatMap(b=>weeks.map(w=>wk(b,w))));
+ let h=`<div class="small muted" style="margin:-6px 0 14px">Students placed each week, per batch and course. The placement team or the batch coordinator records it — company, number placed and (optionally) names. Record “0 this week” to show the week was checked.</div><div class="grid plw">`;
+ for(const b of bs){const all=placedOf(b);const tot=sumN(all);const n=+b.students||0;const pc=n?Math.round(tot*100/n):null;const tw=wk(b,ws),lw=wk(b,addDays(ws,-7)),tm=mo(b,ms);const checked=all.some(x=>x.date>=ws);
+  h+=`<div class="card pad plw-card"><h3>${esc(b.name)}<span class="c">${esc(b.course&&b.course!==b.name?b.course:'')}</span><span class="sp"></span>${canRecordPlaced(b)?`<button class="btn sm pri" data-act="recPlaced" data-id="${esc(b.id)}">+ Record</button>`:''}</h3>
+  <div class="plw-k"><div><b>${tw}</b><span>This week</span></div><div><b>${lw}</b><span>Last week</span></div><div><b>${tm}</b><span>${esc(fmtMonth(ms+'-01').split(' ')[0])}</span></div><div><b>${tot}${n?`<small>/${n}</small>`:''}</b><span>${pc!=null?pc+'% placed':'Placed so far'}</span></div></div>
+  ${n?`<div class="plw-bar" role="img" aria-label="${pc}% placed"><i style="width:${Math.min(100,pc)}%"></i></div>`:`<div class="xs muted">Set the batch strength on the batch to see the % placed.</div>`}
+  <div class="plw-w" aria-label="Placed per week, last 8 weeks">${weeks.map(w=>{const v=wk(b,w);return `<div class="plw-c ${w===ws?'now':''}" title="Week of ${esc(fmtDay(w))}: ${v} placed"><span class="v">${v||''}</span><i style="height:${v?Math.max(6,Math.round(v*44/maxW)):2}px"></i><span class="l">${esc(fmtDay(w).replace(/^\w+,?\s*/,''))}</span></div>`}).join('')}</div>
+  ${!checked&&canRecordPlaced(b)?`<div class="xs od" style="margin-top:6px">Nothing recorded for this week yet.</div>`:''}
+  ${all.length?`<div class="list" style="margin-top:8px">${[...all].sort((a,c)=>c.date.localeCompare(a.date)).slice(0,4).map(x=>`<div class="li"><div class="grow"><div class="t">${+x.count?`${x.count} placed${x.company?' · '+esc(x.company):''}`:'Checked — none this week'}</div><div class="xs muted">${esc(fmtDay(x.date))}${x.ctc?' · '+esc(x.ctc):''}${x.names?' · '+esc(x.names.slice(0,80)):''} · ${esc(x.byName)}</div></div>${canRecordPlaced(b)?`<button class="btn sm ghost" data-act="delPlaced" data-id="${esc(x.id)}" aria-label="Delete record">✕</button>`:''}</div>`).join('')}</div>`:''}</div>`}
+ h+=`</div><div class="card" style="overflow:auto;margin-top:16px"><table class="table"><thead><tr><th>Month</th>${bs.map(b=>`<th style="text-align:right">${esc(b.name)}</th>`).join('')}<th style="text-align:right">All</th></tr></thead><tbody>${months.slice().reverse().map(m=>`<tr><td>${esc(fmtMonth(m+'-01'))}</td>${bs.map(b=>`<td style="text-align:right">${mo(b,m)||'—'}</td>`).join('')}<td style="text-align:right"><b>${bs.reduce((s,b)=>s+mo(b,m),0)||'—'}</b></td></tr>`).join('')}<tr><td><b>Total</b></td>${bs.map(b=>`<td style="text-align:right"><b>${sumN(placedOf(b))}</b></td>`).join('')}<td style="text-align:right"><b>${bs.reduce((s,b)=>s+sumN(placedOf(b)),0)}</b></td></tr></tbody></table></div>`;
+ return h}
+function openPlacedForm(bid){const b=S.batches.find(x=>x.id===bid);if(!b||!canRecordPlaced(b))return;const cos=[...new Set(S.placements.map(p=>p.company).filter(Boolean))].sort();
+ const m=openModal({title:`Record placements · ${b.name}`,body:`<div class="row2"><div class="fld"><label for="pd_d">Offer / result date</label><input class="inp" type="date" id="pd_d" value="${today()}"></div><div class="fld"><label for="pd_n">Students placed</label><input class="inp" type="number" id="pd_n" min="0" max="500" value="1"></div></div>
+ <div class="fld"><label for="pd_c">Company</label><input class="inp" id="pd_c" list="pd_cl" maxlength="120" placeholder="Company name"><datalist id="pd_cl">${cos.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></div>
+ <div class="row2"><div class="fld"><label for="pd_ctc">CTC</label><input class="inp" id="pd_ctc" maxlength="60" placeholder="e.g. 6.5 LPA"></div><div class="fld"><label for="pd_nm">Student names (optional)</label><input class="inp" id="pd_nm" maxlength="600" placeholder="Comma separated"></div></div><div class="err" id="pd_err"></div>`,
+ foot:`<button class="btn" data-zero>None this week</button><span class="sp"></span><button class="btn" data-c>Cancel</button><button class="btn pri" data-s>Save</button>`});const r=m.el;V(r,'[data-c]').onclick=m.close;
+ const save=async zero=>{const date=V(r,'#pd_d').value;const n=zero?0:Math.round(+V(r,'#pd_n').value);if(!okDate(date))return V(r,'#pd_err').textContent='Choose the date.';if(!zero&&(!(n>0)||n>500))return V(r,'#pd_err').textContent='Enter how many students were placed.';
+  const company=zero?'':V(r,'#pd_c').value.trim();const pl=S.placements.find(p=>p.company.toLowerCase()===company.toLowerCase()&&(!p.batchId||p.batchId===b.id));
+  const row={id:uid(),batchId:b.id,date,company,placementId:pl?.id||'',count:n,names:zero?'':V(r,'#pd_nm').value.trim(),ctc:zero?'':V(r,'#pd_ctc').value.trim(),byId:myId(),byName:me().name,createdAt:Date.now()};
+  if(await run(()=>BE.add('placed',row),zero?'Week marked as checked':`${n} placed — recorded`,'placed')){if(n)log(`recorded ${n} placed${company?' at '+company:''} for ${b.name}`,'info',{teamIds:[b.teamId,'placement']});m.close()}};
+ V(r,'.mf [data-s]').onclick=()=>save(false);V(r,'[data-zero]').onclick=()=>save(true)}
+async function delPlaced(id){const x=(S.placed||[]).find(y=>y.id===id);if(!x)return;if(await confirmBox('Delete this record?',`${+x.count?x.count+' placed':'“None this week”'} on ${esc(fmtDay(x.date))} will be removed.`,'Delete'))await run(()=>BE.del('placed',id),'Deleted','placed')}
 /* ---------------- MY WORK (Tasks → My work) ----------------
    One place for everything that is mine: tasks, initiative milestones, batch items,
    company visits, events for my teams / all teams, reminders — today, the next working
@@ -3761,6 +3921,10 @@ function suggestions(){const t=today(),mid=myId(),nwd=nextWorkDay(t);const out=[
   if(!up.some(e=>daysBetween(t,e.date)<=35))add({score:72,icon:'🎤',text:'Schedule the next Emerging Tech Seminar',why:`${last?`Last one was “${last.meta?.topic||last.title}” on ${fmtDay(last.date)}.`:'None held yet.'} Fix a topic, speaker and date — it appears on everyone's calendar.`,act:'newSeminar',id:'',btn:'Schedule'});
   for(const e of up.filter(e=>daysBetween(t,e.date)<=7&&semPrepDone(e)<SEM_PREP.length-1))add({score:86-daysBetween(t,e.date),icon:'🎤',text:`Get “${e.meta?.topic||e.title}” ready`,why:`${e.date===t?'Today':fmtDay(e.date)} · ${semPrepDone(e)} of ${SEM_PREP.length} preparation steps done.`,act:'openEvent',id:e.id,btn:'Open'});
   for(const e of sems.filter(e=>e.date<t&&e.status==='scheduled').slice(-2))add({score:60,icon:'📝',text:`Close the seminar “${e.meta?.topic||e.title}”`,why:'Mark it done with attendance and feedback, and upload the report & photos.',act:'openEvent',id:e.id,btn:'Close'})}
+ {const dw=new Date().getDay();if(dw===5||dw===6){const ws=weekStart(t);const bs=S.batches.filter(b=>batchStatus(b)==='Ongoing'&&canRecordPlaced(b)&&(myTeams().includes('placement')||b.coordinatorId===mid)&&!(S.placed||[]).some(x=>x.batchId===b.id&&x.date>=ws));if(bs.length)add({score:84,icon:'💼',text:`Record this week’s placements — ${bs.map(b=>b.name).join(', ')}`,why:'Number placed (or “none this week”) per batch — it feeds the weekly and monthly placement view.',act:'go',id:'',extra:'data-route="placements"',btn:'Record'})}}
+ for(const x of (S.oppint||[]).filter(y=>y.memberId===mid&&!OPP_DONE.has(y.stage))){const o=(S.opps||[]).find(z=>z.id===x.oppId);if(!o)continue;const before=['Interested','Writing paper'].includes(x.stage)&&/paper|poster/i.test(x.role);const dd=before&&okDate(o.submitDate)&&o.submitDate>=t?daysBetween(t,o.submitDate):okDate(o.registerDate)&&o.registerDate>=t&&!['Registered','Attended / presented','Published'].includes(x.stage)&&['Accepted','Camera-ready','Interested'].includes(x.stage)?daysBetween(t,o.registerDate):null;
+  if(dd!=null&&dd<=14)add({score:82-dd,icon:'📄',text:`${before?'Submit your paper for':'Register for'} ${o.title.split(' – ')[0]}`,why:`${before?'Submission':'Registration'} closes ${dd===0?'today':dd===1?'tomorrow':'in '+dd+' days'} (${fmtDay(before?o.submitDate:o.registerDate)}). You are at “${x.stage}”.`,act:'openOpp',id:o.id,btn:'Open'})}
+ {const own=(S.opps||[]).filter(o=>{const i=oppInit(o);return i&&canEditInit(i)&&okDate(o.submitDate)&&o.submitDate>=t&&daysBetween(t,o.submitDate)<=10&&!oppInts(o).length});if(own.length)add({score:70,icon:'📣',text:`No one has picked ${own.length===1?own[0].title.split(' – ')[0]:own.length+' conferences'} yet`,why:`Submission closes ${fmtDay(own[0].submitDate)}. Share it with faculty and students or ask someone directly.`,act:'openOpp',id:own[0].id,btn:'Open'})}
  {const dw=new Date().getDay();const myHead=S.teams.filter(x=>headsTeam(x.id));const ws=weekStart(t);if((dw===5||dw===6)&&myHead.length){const missing=myHead.filter(x=>!(S.checkins||[]).some(c=>c.teamId===x.id&&c.week===ws));if(missing.length)add({score:88,icon:'🗓️',text:`Write this week’s check-in for ${missing.map(x=>x.name).join(', ')}`,why:'Wins, risks and where the team needs help — it takes two minutes; the rest is filled in for you.',act:'go',id:'',extra:'data-route="checkin"',btn:'Check-in'})}}
  const mates=S.tasks.filter(x=>isOverdue(x)&&!involvedIn(x)&&myTeams().includes(x.teamId)).sort((a,b)=>a.due.localeCompare(b.due)).slice(0,2);
  for(const x of mates){const who=(x.assigneeIds||[]).map(memberOf).filter(Boolean).map(m=>shortName(m.name)).join(', ');add({score:20,icon:'🤝',text:`Offer help on “${x.title}”`,why:`${who||'A teammate'} is ${daysBetween(x.due,t)} days past due. A quick hand may unblock it.`,act:'openTask',id:x.id,btn:'See'})}
@@ -3859,7 +4023,7 @@ const ACT={
  rdView:el=>{S.ui.rd.view=el.dataset.v;render()},rdSt:el=>{S.ui.rd.st=el.dataset.v;render()},rdCell:el=>{Object.assign(S.ui.rd,{view:'items',batch:el.dataset.b,track:el.dataset.t,who:'',st:'all'});render()},rdMine:()=>{Object.assign(S.ui.rd,{view:'items',batch:'',track:'',who:'me',st:'open'});go('readiness')},rdExport:()=>exportChecklist(),openReadiness:el=>{Object.assign(S.ui.rd,{view:'items',batch:el.dataset.b||'',track:'',who:el.dataset.w||'',st:el.dataset.st||'open'});go('readiness')},
  ckWeek:el=>{S.ui.ck.off=+el.dataset.v;render()},ckSave:el=>ckSave(el),
  tmode:el=>{S.ui.tmode=el.dataset.v;render()},planStep:el=>planStep(el),eveningSummary:()=>eveningSummary(true),fToggle:()=>{S.ui.fOpen=!S.ui.fOpen;render()},tview:el=>{S.ui.tview=el.dataset.v;render()},tsort:el=>{S.ui.tsort=el.dataset.k;render()},exportTasks:()=>exportTasks(),
- newEvent:el=>openEventForm(null,el.dataset.d?{date:el.dataset.d,...(el.dataset.sun?{type:'Session',title:'Extra lecture: ',allDay:false}:{})}:{}),newSeminar:el=>openSeminarForm(null,el.dataset.d?{date:el.dataset.d}:{}),evOwners:()=>openEvOwners(),openEvent:el=>openEvent(el.dataset.id),
+ newEvent:el=>openEventForm(null,el.dataset.d?{date:el.dataset.d,...(el.dataset.sun?{type:'Session',title:'Extra lecture: ',allDay:false}:{})}:{}),openOpp:el=>openOpp(el.dataset.id),oppInterest:el=>oppInterest(el.dataset.id),oppK:el=>{(S.ui.opp||(S.ui.opp={k:'open',q:''})).k=el.dataset.v;render()},oppNew:el=>openOppForm(null,el.dataset.id),oppImport:el=>openOppImport(el.dataset.id),recPlaced:el=>openPlacedForm(el.dataset.id),delPlaced:el=>delPlaced(el.dataset.id),newSeminar:el=>openSeminarForm(null,el.dataset.d?{date:el.dataset.d}:{}),evOwners:()=>openEvOwners(),openEvent:el=>openEvent(el.dataset.id),
  importSched:()=>openImport(),manageImports:()=>manageImports(),
  importForBatch:el=>openImport(el.dataset.id),
  calForBatch:el=>{const b=S.batches.find(x=>x.id===el.dataset.id);if(b?.teamId)S.ui.cal.teams=[b.teamId];S.ui.cal.sessions=true;const d=b?.start&&b.start>today()?b.start:today();S.ui.cal.sel=d;const dd=parseYmd(d);S.ui.cal.y=dd.getFullYear();S.ui.cal.m=dd.getMonth();go('calendar')},
@@ -3924,7 +4088,7 @@ document.addEventListener('change',e=>{const t=e.target;const k=t.dataset.change
   nexp:()=>S.ui.nf.expired=t.checked,lteam:()=>S.ui.lf.team=t.value,dcat:()=>S.ui.df.cat=t.value,dteam:()=>S.ui.df.team=t.value,
   repId:()=>S.ui.rep.id=t.value,plbatch:()=>S.ui.plc.batch=t.value,cstage:()=>S.ui.plc.cstage=t.value,insTeam:()=>S.ui.ins.team=t.value,rddone:()=>S.ui.rd.done=t.checked,ckteam:()=>S.ui.ck.team=t.value,rdb:()=>S.ui.rd.batch=t.value,rdt:()=>S.ui.rd.track=t.value,rdw:()=>S.ui.rd.who=t.value,repMonth:()=>{if(/^\d{4}-\d{2}$/.test(t.value))S.ui.rep.month=t.value}})[k]?.();render()});
 const deb=debounce(()=>render(),140);
-document.addEventListener('input',e=>{const k=e.target.dataset.input;if(!k)return;const v=e.target.value;({tq:()=>S.ui.tf.q=v,mq:()=>S.ui.memQ=v,pq:()=>S.ui.pf.q=v,iq:()=>S.ui.inf.q=v,dq:()=>S.ui.df.q=v,plq:()=>S.ui.plc.q=v,cq:()=>S.ui.plc.cq=v})[k]?.();deb()});
+document.addEventListener('input',e=>{const k=e.target.dataset.input;if(!k)return;const v=e.target.value;({tq:()=>S.ui.tf.q=v,mq:()=>S.ui.memQ=v,pq:()=>S.ui.pf.q=v,iq:()=>S.ui.inf.q=v,dq:()=>S.ui.df.q=v,plq:()=>S.ui.plc.q=v,cq:()=>S.ui.plc.cq=v,oppq:()=>(S.ui.opp||(S.ui.opp={k:'open',q:''})).q=v})[k]?.();deb()});
 window.addEventListener('hashchange',()=>{const r=location.hash.slice(1);if(S.loaded&&r&&r!==S.route&&ROUTES.some(x=>x[0]===r)){S.route=r;render()}});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&S.loaded&&me())reload(Object.keys(COLS))});
 window.addEventListener('online',()=>{S.online=true;if(S.loaded)reload(Object.keys(COLS))});window.addEventListener('offline',()=>{S.online=false;schedule()});
