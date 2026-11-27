@@ -1116,6 +1116,77 @@ html[data-skin=midnight] .opp:hover{border-color:rgba(217,188,126,.4)}html[data-
 .plw-c{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;height:100%}.plw-c i{display:block;width:70%;max-width:22px;border-radius:4px 4px 0 0;background:color-mix(in srgb,var(--p) 55%,transparent)}
 .plw-c.now i{background:var(--p)}.plw-c .v{font-size:11px;font-weight:600}.plw-c .l{font-size:10px;color:var(--muted);white-space:nowrap}
 html[data-skin=midnight] .plw-c i{background:rgba(217,188,126,.45)}html[data-skin=midnight] .plw-c.now i{background:#d9bc7e}
+
+/* ---- programmes + hover previews (23 Nov) ---- */
+.prog{border:1px solid var(--line);border-radius:var(--r,14px);background:var(--surface);margin-bottom:18px;overflow:hidden;transition:box-shadow .2s,border-color .2s}
+.prog:hover{border-color:color-mix(in srgb,var(--p) 40%,var(--line))}
+.prog-h{display:flex;gap:18px;align-items:center;padding:18px 20px;cursor:pointer;background:linear-gradient(120deg,color-mix(in srgb,var(--p) 12%,transparent),transparent 60%)}
+.prog-h:hover{background:linear-gradient(120deg,color-mix(in srgb,var(--p) 18%,transparent),transparent 70%)}
+.prog-t{flex:1;min-width:0}.prog-t h2{margin:0;font-size:20px;letter-spacing:-.01em}
+.prog-k{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--p7,var(--p));text-transform:uppercase}
+.prog-r{display:flex;flex-direction:column;align-items:flex-end;gap:2px;position:relative;padding-right:28px}
+.prog-chev{position:absolute;right:0;top:50%;margin-top:-12px;font-size:22px;color:var(--faint,#94a3b8);transition:transform .2s}
+.prog.open .prog-chev{transform:rotate(90deg)}
+.prog-b{padding:4px 20px 20px;border-top:1px solid var(--line)}
+.prog-f{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+.prog-f .dot,.hv-list .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+@media (max-width:760px){.prog-h{flex-wrap:wrap}.prog-r{align-items:flex-start}}
+.tcardx,.pcard,.li.click,.tk,.attn{transition:transform .15s ease,box-shadow .15s ease,background .15s}
+.card.tcardx:hover,.tk:hover,.pcard:hover{transform:translateY(-2px);box-shadow:0 10px 28px -12px rgba(0,0,0,.35)}
+.hovcard{position:fixed;z-index:9999;width:300px;max-width:calc(100vw - 20px);padding:14px 16px;border-radius:12px;background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:0 18px 50px -12px rgba(0,0,0,.45);font-size:12.5px;pointer-events:none;animation:hvIn .14s ease-out}
+@keyframes hvIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hovcard{animation:none}.card.tcardx:hover,.tk:hover,.pcard:hover{transform:none}}
+.hv-k{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#94a3b8)}
+.hv-t{font-size:14px;font-weight:600;margin:3px 0 6px;line-height:1.3}
+.hv-d{color:var(--ink2);margin:0 0 8px;line-height:1.45}
+.hv-r{display:flex;gap:10px;justify-content:space-between;padding:3px 0;border-top:1px dashed var(--line2,var(--line))}
+.hv-r span{color:var(--muted,#94a3b8);flex:none}.hv-r b{font-weight:500;text-align:right}
+.hv-p{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.hv-list{margin:8px 0 4px;display:flex;flex-direction:column;gap:3px}.hv-list>div{display:flex;align-items:center}.hv-list em{margin-left:auto;font-style:normal;color:var(--muted,#94a3b8);padding-left:8px}
+.itabs button{font-size:14px;padding:7px 14px}.itabs .c{font-size:11px;opacity:.7;margin-left:4px}
+.prog-h:not([data-act]){cursor:default}
+
+/* ---- lighter text + tour (23 Nov) ---- */
+.intro-tip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(720px,100%);cursor:help}
+.intro-tip::before{content:"ⓘ ";opacity:.8}
+.tcardx .ds{-webkit-line-clamp:1!important;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.li.sug .small.muted,.attn .small.muted{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#helpBtn{font-weight:700;font-size:15px;color:var(--ink2)}
+.tour{position:fixed;inset:0;z-index:10000}
+.tour-dim{position:fixed;inset:0;background:rgba(5,8,25,.6)}
+.tour-hole{position:fixed;border-radius:12px;box-shadow:0 0 0 9999px rgba(5,8,25,.6),0 0 0 2px var(--p);transition:all .28s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.tour-pop{position:fixed;width:320px;max-width:calc(100vw - 24px);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 24px 60px -16px rgba(0,0,0,.6);animation:hvIn .2s ease-out}
+.tour-pop.center{left:50%;top:50%;transform:translate(-50%,-50%);width:380px;animation:none}
+.tour-pop h3{margin:2px 0 6px;font-size:16px}.tour-pop p{margin:0 0 14px;color:var(--ink2);line-height:1.5;font-size:13.5px}
+.tour-step{font-size:11px;font-weight:600;color:var(--muted,#94a3b8);letter-spacing:.04em}
+.tour-f{display:flex;gap:6px;align-items:center}
+.tour-dots{display:flex;gap:4px}.tour-dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}.tour-dots i.on{background:var(--p);width:14px;border-radius:3px}
+@media (prefers-reduced-motion:reduce){.tour-hole{transition:none}.tour-pop{animation:none}}
+.tour-pop.still{animation:none}
+
+/* Batch readiness · team lists */
+.rdteams .rdhead{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.rdtabs{display:flex;flex-wrap:wrap;width:100%;margin-bottom:12px}
+.rdtabs button{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;position:relative}
+.rdtabs button:not(.on):hover{background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--ink)}
+.rdtabs button.on{background:var(--c);color:#fff;box-shadow:0 2px 10px color-mix(in srgb,var(--c) 35%,transparent)}
+.rdtabs .rdl{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#dc2626;color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+.rdtabs button.on .rdl{background:#fff;color:#dc2626}
+.rdsum{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.rdsum .rdwho{display:inline-flex}
+.rdck{cursor:pointer}.rdck.on{border-color:var(--p);color:var(--p)}.rdck[disabled]{cursor:default;opacity:.75}
+.rdck:not([disabled]):hover{background:var(--hover)}
+.rdlst{margin-bottom:10px}
+.rdlist .pb{transition:transform .15s,background .15s;border-radius:10px}
+.rdlist .pb:hover{transform:translateX(2px);background:var(--hover)}
+.rdfb summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+.rdfb summary::-webkit-details-marker{display:none}
+.rdfb summary::before{content:'▸';transition:transform .15s;display:inline-block}.rdfb[open] summary::before{transform:rotate(90deg)}
+@media (prefers-reduced-motion:reduce){.rdlist .pb,.rdfb summary::before{transition:none}.rdlist .pb:hover{transform:none}}
+@media (max-width:700px){.rdtabs button{flex:1 1 45%}}
+.rdbulk{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 10px;margin-bottom:8px;border-radius:10px;background:color-mix(in srgb,var(--p) 10%,transparent);position:sticky;top:0;z-index:2}
+.rdsel{display:flex;align-items:center;gap:8px;cursor:pointer}.rdsel>input{flex:none;width:17px;height:17px}.rdsel>.pb{flex:1;min-width:0}.rdsel.off{cursor:default;opacity:.6}
+.rdhead .chip{cursor:pointer}.rdhead .chip.on{background:var(--p);color:#fff;border-color:var(--p)}
 </style>
 </head>
 <body>
@@ -1134,7 +1205,7 @@ const CONFIG={
   supabaseUrl:'https://lpovmvchkfbmzpmjvnsg.supabase.co',
   supabaseKey:'sb_publishable_CzaiMY1NttsjtVLPpnU9cA_YqGrBIwS'
 };
-const COLS={teams:'hub_teams',members:'hub_members',tasks:'hub_tasks',events:'hub_events',parts:'hub_parts',activity:'hub_activity',notices:'hub_notices',leaves:'hub_leaves',docs:'hub_docs',inits:'hub_initiatives',batches:'hub_batches',reminders:'hub_reminders',placements:'hub_placements',contacts:'hub_contacts',checks:'hub_checklist',checkins:'hub_checkins',evowners:'hub_evowners',opps:'hub_opps',oppint:'hub_opp_int',placed:'hub_placed'};
+const COLS={teams:'hub_teams',members:'hub_members',tasks:'hub_tasks',events:'hub_events',parts:'hub_parts',activity:'hub_activity',notices:'hub_notices',leaves:'hub_leaves',docs:'hub_docs',inits:'hub_initiatives',batches:'hub_batches',reminders:'hub_reminders',placements:'hub_placements',contacts:'hub_contacts',checks:'hub_checklist',checkins:'hub_checkins',evowners:'hub_evowners',opps:'hub_opps',oppint:'hub_opp_int',placed:'hub_placed',chkcheckers:'hub_chk_checkers'};
 
 /* ---------------- backend (Supabase) ---------------- */
 function makeBackend(){
@@ -1259,9 +1330,9 @@ const NAV_GROUPS=[[null,['home']],['Work',['tasks','calendar','reminders','check
 const NAV_LABEL={leave:'Leave',opps:'Conferences'};
 
 /* ---------------- state ---------------- */
-const S={session:null,teams:[],members:[],tasks:[],events:[],parts:[],activity:[],notices:[],leaves:[],docs:[],inits:[],batches:[],reminders:[],placements:[],contacts:[],checkins:[],evowners:[],opps:[],oppint:[],placed:[],loaded:false,ver:0,
+const S={session:null,teams:[],members:[],tasks:[],events:[],parts:[],activity:[],notices:[],leaves:[],docs:[],inits:[],batches:[],reminders:[],placements:[],contacts:[],checkins:[],evowners:[],opps:[],oppint:[],placed:[],chkcheckers:[],loaded:false,ver:0,
  tm:new Map(),mm:new Map(),route:'home',online:true,
- ui:{tf:{team:'',who:'',prio:'',q:'',mine:false,batch:''},tview:'board',tsort:'due',rd:{view:'matrix',done:false,batch:'',track:'',who:'',st:'open'},chkTab:'overview',ck:{off:0,team:''},
+ ui:{tf:{team:'',who:'',prio:'',q:'',mine:false,batch:''},tview:'board',tsort:'due',rd:{view:'matrix',done:false,batch:'',track:'',who:'',st:'open',team:'',lst:'late',lb:'',more:false},chkTab:'overview',ck:{off:0,team:''},
   cal:{mode:'month',y:new Date().getFullYear(),m:new Date().getMonth(),sel:today(),teams:[],sessions:true},
   teamOpen:null,person:null,ptab:'tasks',memQ:'',memTeam:'',teamsView:'org',
   pf:{q:'',cat:'',team:'',who:'',period:'year',batch:''},pview:'entries',
@@ -1439,7 +1510,7 @@ function buildShell(){
  <button class="btn grad create" data-act="createMenu" id="createBtn">+ Create</button><nav class="nav" id="nav" aria-label="Main"></nav><button class="me" id="meBox" data-act="meMenu"></button></aside>
  <main><div class="top"><h1 id="pageTitle"></h1><div class="sp"></div>
  <div class="gs">${ICON.search}<input id="gsIn" placeholder="Search or jump to…" autocomplete="off" aria-label="Search or run a command" readonly><kbd>${/Mac/.test(navigator.platform)?'⌘':'Ctrl'} K</kbd><div class="gs-res" id="gsRes" hidden></div></div>
- <button class="icon-btn" id="bellBtn" aria-label="Upcoming in the next 24 hours" title="Next 24 hours"></button></div>
+ <button class="icon-btn" id="helpBtn" data-act="tour" aria-label="Take the tour" title="How to use Ekatra">?</button><button class="icon-btn" id="bellBtn" aria-label="Upcoming in the next 24 hours" title="Next 24 hours"></button></div>
  <div id="offBar"></div><div id="remBar"></div><div class="view" id="view"></div></main></div>
  <nav class="mob-nav" id="mobNav" aria-label="Main"></nav><button class="fab" data-act="createMenu" aria-label="Create">+</button>`;
  bindShell();shellBuilt=true;
@@ -1459,7 +1530,7 @@ function render(){
  const key=[S.route,S.ui.person,S.ui.batchOpen,S.ui.initOpen,S.ui.teamOpen,S.route==='people'?S.ui.ptab:'',S.route==='home'?S.ui.homeView:'',S.route==='insights'?S.ui.ins.weeks+S.ui.ins.team:''].join('|');const entering=key!==lastViewKey;lastViewKey=key;
  pendingCharts=[];v.innerHTML=R();
  if(entering){v.classList.remove('enter');void v.offsetWidth;v.classList.add('enter');clearTimeout(enterT);enterT=setTimeout(()=>v.classList.remove('enter'),1100);countUp(v)}
- mountCharts(entering);
+ mountCharts(entering);lighten(v);
  applyFlash();
  if(fid){const n=document.getElementById(fid);if(n){n.focus();if(ss!=null)try{n.setSelectionRange(ss,ss)}catch{}}}
  if(S.route==='tasks')bindDrag();
@@ -2115,8 +2186,8 @@ function initCard(i){const c=KIND_COL(i.kind);const p=initProg(i);const late=okD
  ${okDate(i.targetDate)?`<div class="xs ${late?'od':'muted'}" style="margin-top:8px">Target ${fmtDate(i.targetDate)}${late?' — overdue':''}</div>`:''}${i.users?`<div class="xs muted" style="margin-top:4px">Users / reach: ${esc(i.users)}</div>`:''}</div>`}
 function viewInitiatives(){
  if(S.ui.initOpen){const i=S.inits.find(x=>x.id===S.ui.initOpen);if(i)return initDetail(i);S.ui.initOpen=null}
- const f=S.ui.inf;const list=filteredInits();
- let h=`<div class="toolbar"><input class="inp" id="iq" placeholder="Search initiatives" value="${esc(f.q)}" data-input="iq" style="width:190px" aria-label="Search initiatives">
+ const f=S.ui.inf;const pm=programmes(S.inits);const tab=pm.has(S.ui.itab)?S.ui.itab:'';const list=filteredInits().filter(i=>tab?progKeyOf(i)===tab:!pm.has(progKeyOf(i)));
+ let h=initTabs(pm,tab)+`<div class="toolbar"><input class="inp" id="iq" placeholder="Search initiatives" value="${esc(f.q)}" data-input="iq" style="width:190px" aria-label="Search initiatives">
  <select class="inp" data-change="ikind" aria-label="Kind"><option value="">All kinds</option>${INIT_KINDS.map(k=>`<option ${f.kind===k?'selected':''}>${k}</option>`).join('')}</select>
  <select class="inp" data-change="istatus" aria-label="Status"><option value="">Any status</option>${INIT_STATUS.map(k=>`<option ${f.status===k?'selected':''}>${k}</option>`).join('')}</select>
  <select class="inp" data-change="iteam" aria-label="Team">${teamOpts(f.team,'All teams')}</select><span style="flex:1"></span>
@@ -2125,7 +2196,7 @@ function viewInitiatives(){
  if(!S.inits.length)return h+`<div class="card pad empty"><b>No initiatives yet</b>Add your products (Sarthi, Netra AI…), new course launches, corporate trainings and partnerships.</div>`;
  if(!list.length)return h+`<div class="card pad empty">Nothing matches these filters.</div>`;
  if(S.ui.iview==='board')return h+`<div class="board" style="grid-template-columns:repeat(${INIT_STATUS.length},minmax(230px,1fr))">${INIT_STATUS.map(s=>{const it=list.filter(i=>i.status===s);return `<div class="col"><h4><span><span style="color:${INIT_STATUS_COL[s]}">●</span> ${s}</span><span class="muted">${it.length}</span></h4>${it.map(i=>`<div class="tk" data-act="openInit" data-id="${esc(i.id)}" role="button" tabindex="0"><div class="row"><span class="cat" style="--c:${KIND_COL(i.kind)}">${esc(i.kind)}</span>${memberOf(i.ownerId)?avatar(memberOf(i.ownerId),'sm'):''}</div><div class="ttl">${esc(i.name)}</div>${initProg(i)!=null?`<div class="bar" style="--c:${KIND_COL(i.kind)}"><i style="width:${initProg(i)}%"></i></div>`:''}<div class="xs muted">${esc(teamOf(i.teamId)?.name||'')}${i.stage?' · '+esc(i.stage):''}${okDate(i.targetDate)?' · '+fmtDate(i.targetDate):''}</div></div>`).join('')||'<div class="small muted" style="padding:8px">—</div>'}</div>`}).join('')}</div>`;
- return h+`<div class="grid cards-grid">${list.map(initCard).join('')}</div>`;
+ return h+(tab?progPanel(tab,list,true):`<div class="grid cards-grid">${list.map(initCard).join('')}</div>`);
 }
 function initDetail(i){
  const can=canEditInit(i);const c=KIND_COL(i.kind);const ms=i.milestones||[];const p=initProg(i);const tasks=S.tasks.filter(x=>x.initiativeId===i.id);const upd=[...(i.updates||[])].reverse();
@@ -3217,7 +3288,7 @@ function infMini(kind){const L=infPath('inf');const still=typeof reduceMotion===
    across batches and each person's growth over time. */
 const CHK_TRACKS=[
  {k:'placement',name:'Placement',team:'placement',c:'#d97706',icon:'🎯',about:'Make every student placeable — introduction, profile, aptitude & communication sessions, GDs, mocks, recruiters and drives.'},
- {k:'course',name:'Course team',team:null,c:'#16a34a',icon:'📘',about:'Technical readiness — mentors, lab exams & quizzes per module, expert sessions, CMCE / CCEE preparation, projects.'},
+ {k:'course',name:'Course coordinator',team:null,c:'#16a34a',icon:'📘',about:'Technical readiness — mentors, lab exams & quizzes per module, expert sessions, CMCE / CCEE preparation, projects.'},
  {k:'students',name:'Student activities',team:null,c:'#7c3aed',icon:'🌟',about:'Batch life — CR & leads, batch name, leaderboards, contests, hoodies, picnic, inauguration, farewell.'},
  {k:'admin',name:'E&T Admin',team:'et-admin',c:'#0891b2',icon:'🗂️',about:'Admissions, records, attendance, exam logistics, convocation and closure.'},
  {k:'marketing',name:'Marketing',team:'marketing',c:'#db2777',icon:'📣',about:'Batch stories, recruiter brochure, placement highlights, next-batch campaign.'},
@@ -3266,6 +3337,24 @@ placement:[
  ['After the course','Follow-up of unplaced students','Referrals / off-campus drives arranged for every unplaced student',['ccpp',90]],
  ['After the course','Placement report','% placed, highest and median CTC, recruiters — shared with HoD',['ccpp',90]],
  ['After the course','Recruiter feedback to course team','Feedback collected from recruiters and shared for curriculum review',['ccpp',90]],
+ ['First month','Student placement coordinators appointed','2–3 student coordinators named for communication and logistics',['s',10]],
+ ['First month','Role and domain mapping session','Job roles for this course, the skills each needs and salary bands explained to the batch',['s',12],{cal:1}],
+ ['First month','Recruiter landscape session','Past recruiters, their selection rounds and roles shared with the batch',['s',18],{cal:1}],
+ ['First month','Self-introduction drill','Every student has recorded a 60–90 second intro and got feedback',['s',28]],
+ ['Building up','Corporate etiquette workshop','Dress code, punctuality, body language and interview manners session held',['s',60],{cal:1}],
+ ['Building up','Online interview readiness','Camera, audio, network and screen-sharing practice done by every student',['s',75],{cal:1}],
+ ['Building up','One-on-one placement counselling','10–15 minute meeting with every student; target role and next steps noted',['s',85]],
+ ['Mid-course','Telephonic / screening round practice','Every student has taken one mock HR screening call',['cmce',25]],
+ ['Mid-course','Assessment platform familiarisation','Practice test on a HackerRank / Mettl / AMCAT-style platform taken by every student',['cmce',35],{cal:1}],
+ ['Placement season','Full mock placement drive','End-to-end mock: PPT, aptitude, technical test, GD, technical and HR interviews; results feed the readiness score',['ccpp',-50],{cal:1,rem:[7,3]}],
+ ['Placement season','Industry panel mock interviews','HR / technical leads from partner companies took mock interviews',['ccpp',-40],{cal:1}],
+ ['Placement season','Resume clinic','One-on-one resume fixes done for every student',['ccpp',-35]],
+ ['Placement season','Offer handling session','CTC vs in-hand, bonds, notice period, accepting and declining offers explained',['ccpp',-20],{cal:1}],
+ ['Placement season','Pre-placement talks (PPTs) scheduled','PPT dates fixed with every confirmed recruiter',['ccpp',-14]],
+ ['Placement season','Grooming check before drives','Dress, printed resumes, ID and documents checked before the first drive',['ccpp',-2]],
+ ['After the course','Rejection debriefs','Students not selected got round-wise feedback after each drive',['ccpp',20]],
+ ['After the course','Interview experience bank updated','Questions asked by each company recorded by placed students',['ccpp',30]],
+ ['','Full-length aptitude mock','Timed aptitude mock held this month; scores recorded',['s',0],{cal:1,monthly:{until:'ccpp',day:15}}],
  ['','Aptitude sessions','2 aptitude sessions held this month; attendance and scores recorded',['s',0],{cal:1,monthly:{until:'ccpp'}}],
  ['','Communication sessions','2 communication sessions held this month; attendance recorded',['s',0],{cal:1,monthly:{until:'ccpp'}}]],
 course:[
@@ -3295,6 +3384,9 @@ course:[
  ['Placement season','Final project demo & evaluation','Demos held; marks submitted',['e',-8],{cal:1}],
  ['After the course','Result analysis','Pass %, module-wise weak areas and toppers shared with HoD',['e',20]],
  ['After the course','Curriculum review note for next batch','Changes proposed using results, student and recruiter feedback',['e',30]],
+ ['Before start','Question bank and Netra tests ready per module','Sarthi question bank and Netra AI tests ready before each module starts',['s',-5]],
+ ['First month','Weekly syllabus coverage review started','Coverage vs plan reviewed with faculty every week',['s',7]],
+ ['Placement season','Course audit readiness','Session plans, attendance, marks, feedback and lab records ready for the audit',['ccee',-25]],
  ['','Expert session','One industry expert session held this month',['s',0],{cal:1,monthly:{until:'e'}}]],
 students:[
  ['Before start','Inauguration planning','Programme, chief guest, welcome activities and student kits planned with admin',['inauguration',-10],{rem:[7,3]}],
@@ -3337,6 +3429,12 @@ admin:[
  ['After the course','Guest faculty bills cleared (second half)','All remaining honorarium bills processed',['e',15]],
  ['After the course','Batch closure report','Admissions, dropouts, attendance and results summarised for HoD',['e',15]],
  ['After the course','Alumni records updated','Contact, LinkedIn and employer recorded for every student',['e',30]],
+ ['First month','Batch groups and calendar shared','WhatsApp / email groups made; academic and holiday calendar shared',['s',3]],
+ ['First month','Emergency contact list','Emergency contacts for every student on file',['s',10]],
+ ['Mid-course','CMCE eligibility list','Attendance and fees checked for every student before CMCE',['cmce',-10]],
+ ['Placement season','Course audit documents filed','Attendance, registers, fee, feedback and exam records filed for the audit',['ccee',-25]],
+ ['Placement season','CCEE hall tickets issued','Hall tickets issued to every eligible student',['ccee',-5]],
+ ['After the course','Mark sheets and certificates distributed','Handed to every student; acknowledgement on file',['e',30]],
  ['','Attendance report','Report shared; warning to students below eligibility',['s',0],{monthly:{until:'ccee',day:28}}]],
 marketing:[
  ['First month','Batch welcome post','Welcome post with photos on all C-DAC social pages',['s',3]],
@@ -3398,7 +3496,11 @@ const chkPct=items=>{const n=items.filter(i=>i.status!=='na');return n.length?Ma
 const batchMgr=b=>!!b&&(b.coordinatorId===myId()||headsTeam(b.teamId));
 const canSetupChk=b=>isLeadAny()||isHod()||batchMgr(b);
 const chkMgr=i=>isHod()||headsTeam(i.teamId)||i.createdBy===myId()||batchMgr(S.batches.find(b=>b.id===i.batchId));
-const chkProg=i=>headsTeam(i.teamId)||i.ownerId===myId(); // HoD assigns & reviews, but doesn't tick other people's work
+/* checker: one more person per team who may tick that team's items (set on Batch readiness) */
+const chkCheckerIds=(track,teamId)=>((S.chkcheckers||[]).find(c=>c.id===track+'|'+teamId)||{}).memberIds||[];
+const isChkChecker=i=>chkCheckerIds(i.track,i.teamId).includes(myId());
+const canSetChecker=teamId=>isAdmin()||isHod()||headsTeam(teamId);
+const chkProg=i=>headsTeam(i.teamId)||i.ownerId===myId()||isChkChecker(i); // HoD assigns & reviews, but doesn't tick other people's work
 const chkRev=i=>isHod()||headsTeam(i.teamId);
 const canReviewTask=x=>isHod()||headsTeam(x.teamId)||x.createdBy===myId();
 const canSeeGrowth=()=>isHod()||isLeadAny();
@@ -3409,7 +3511,7 @@ const avgRating=list=>{const r=list.flatMap(x=>(x.reviews||[]).map(v=>+v.rating|
 /* ---------- batch page card ---------- */
 function batchChecklistCard(b){const items=chkOf(b.id);const tab=S.ui.chkTab||'overview';const can=canSetupChk(b);
  const missing=CHK_TRACKS.filter(t=>!items.some(i=>i.track===t.k));
- let h=`<div class="card pad chkcard" style="margin-bottom:16px"><h3>Team checklists<span class="c">${items.length?`${chkPct(items)??0}% done`:''}</span><span class="sp"></span>${can&&missing.length?`<button class="btn sm ${items.length?'':'pri'}" data-act="chkSetup" data-id="${esc(b.id)}">${items.length?'+ Add a team checklist':'Set up checklists'}</button>`:''}${items.length&&canSetupChk(b)?`<button class="btn sm" data-act="chkAdd" data-id="${esc(b.id)}" data-t="${esc(tab==='overview'?'':tab)}">+ Item</button>`:''}</h3>`;
+ let h=`<div class="card pad chkcard" style="margin-bottom:16px"><h3>Team checklists<span class="c">${items.length?`${chkPct(items)??0}% done`:''}</span><span class="sp"></span>${can&&missing.length?`<button class="btn sm ${items.length?'':'pri'}" data-act="chkSetup" data-id="${esc(b.id)}">${items.length?'+ Add a team checklist':'Set up checklists'}</button>`:''}${items.length&&can&&chkNewCount(b)?`<button class="btn sm" data-act="chkSync" data-id="${esc(b.id)}" title="Standard activities added to Ekatra after this batch's lists were set up">＋ ${chkNewCount(b)} new standard items</button>`:''}${items.length&&canSetupChk(b)?`<button class="btn sm" data-act="chkAdd" data-id="${esc(b.id)}" data-t="${esc(tab==='overview'?'':tab)}">+ Item</button>`:''}</h3>`;
  if(!items.length)return h+`<div class="empty"><b>No checklists for this batch yet</b>One list per team — Placement, Course team, Student activities, E&amp;T Admin, Marketing and HoD reviews — with about 160 dated activities for a 6-month batch — lab exams, quizzes and results per module, monthly sessions, picnic, convocation and placement preparation. Owners see their items in “My work”; HoD reviews and gives feedback.${can?'':' A team head, the batch coordinator or HoD can set them up.'}</div></div>`;
  const tracks=CHK_TRACKS.filter(t=>items.some(i=>i.track===t.k));
  h+=`<div class="toggle chktabs" role="tablist" style="margin-bottom:14px;flex-wrap:wrap"><button class="${tab==='overview'?'on':''}" data-act="chkTab" data-v="overview">Overview</button>${tracks.map(t=>{const its=items.filter(i=>i.track===t.k);const l=its.filter(chkLate).length;return `<button class="${tab===t.k?'on':''}" data-act="chkTab" data-v="${t.k}">${t.icon} ${esc(t.name)} · ${chkPct(its)??0}%${l?` <span class="od">· ${l} late</span>`:''}</button>`}).join('')}</div>`;
@@ -3423,9 +3525,9 @@ function batchChecklistCard(b){const items=chkOf(b.id);const tab=S.ui.chkTab||'o
   const other=its.filter(i=>!CHK_PHASES.includes(i.phase||''));if(other.length)h+=`<div class="phase"><h4>Other</h4>${other.sort(chkSort).map(i=>chkLi(i)).join('')}</div>`}
  return h+'</div>'}
 const chkSort=(a,x)=>(a.due||'9999').localeCompare(x.due||'9999')||(a.order||0)-(x.order||0);
-function chkLi(i,withBatch){const late=chkLate(i);const o=memberOf(i.ownerId);const st=i.status;const rv=lastReview(i);const can=chkProg(i);const b=withBatch?S.batches.find(x=>x.id===i.batchId):null;
+function chkLi(i,withBatch,compact){const late=chkLate(i);const o=memberOf(i.ownerId);const st=i.status;const rv=lastReview(i);const can=chkProg(i);const b=withBatch?S.batches.find(x=>x.id===i.batchId):null;
  return `<div class="pb ${st==='done'?'done':''} ${st==='na'?'na':''}"><button class="chk ${st==='done'?'on':st==='doing'?'sch':''}" ${can&&st!=='na'?`data-act="chkToggle" data-id="${esc(i.id)}"`:'disabled'} aria-label="${st==='done'?'Mark not done':'Mark done'}: ${esc(i.title)}">${st==='done'?'✓':st==='doing'?'◐':st==='na'?'–':''}</button>
- <div class="pt click" data-act="openChk" data-id="${esc(i.id)}" role="button" tabindex="0">${esc(i.title)} ${flowBadges(i)}${(i.updates||[]).length?` <span class="xs muted">💬${(i.updates||[]).length}</span>`:''}<div class="xs muted">${b?`${esc(b.name)} · ${esc(chkTrack(i.track).name)} · `:''}${st==='na'?'Not needed':esc(i.description||'')}</div>${nextLine(i)}</div>
+ <div class="pt click" data-act="openChk" data-id="${esc(i.id)}" role="button" tabindex="0">${esc(i.title)} ${flowBadges(i)}${(i.updates||[]).length?` <span class="xs muted">💬${(i.updates||[]).length}</span>`:''}${compact?`<div class="xs muted">${b?esc(b.name):''}${st==='na'?' · Not needed':''}</div>`:`<div class="xs muted">${b?`${esc(b.name)} · ${esc(chkTrack(i.track).name)} · `:''}${st==='na'?'Not needed':esc(i.description||'')}</div>${nextLine(i)}`}</div>
  ${rv?`<span class="xs" title="Feedback from ${esc(rv.byName||'')}">${stars(+rv.rating||0)}</span>`:''}${o?avatar(o,'sm'):`<span class="xs od">No owner</span>`}<span class="meta ${late?'od':''}">${okDate(i.due)?fmtDay(i.due):'—'}</span></div>`}
 
 /* ---------- set up checklists for a batch ---------- */
@@ -3522,11 +3624,85 @@ function viewReadiness(){const f=S.ui.rd;const t=today();
  h+=`<div class="card" style="overflow:auto"><table class="table rdmx"><thead><tr><th>Batch</th>${tracks.map(tr=>`<th>${tr.icon} ${esc(tr.name)}</th>`).join('')}<th>Overall</th></tr></thead><tbody>${batches.filter(b=>all.some(i=>i.batchId===b.id)).map(b=>{const its=all.filter(i=>i.batchId===b.id);
   return `<tr><td><a href="#batches" data-act="openBatch" data-id="${esc(b.id)}"><b>${esc(b.name)}</b></a><div class="xs muted">${batchStatus(b)} · ${okDate(b.start)?fmtDate(b.start)+' – '+fmtDate(b.end):''}</div></td>${tracks.map(tr=>{const x=its.filter(i=>i.track===tr.k);if(!x.length)return '<td class="muted xs">—</td>';const p=chkPct(x)??0;const l=x.filter(chkLate).length;
    return `<td class="click" data-act="rdCell" data-b="${esc(b.id)}" data-t="${tr.k}" title="Open ${esc(tr.name)} items for ${esc(b.name)}"><div style="display:flex;gap:8px;align-items:center"><div class="bar" style="--c:${tr.c};flex:1;min-width:60px"><i style="width:${p}%"></i></div><b>${p}%</b></div><div class="xs ${l?'od':'muted'}">${x.filter(i=>i.status==='done').length}/${x.filter(i=>i.status!=='na').length}${l?` · ${l} late`:''}</div></td>`}).join('')}<td><b>${chkPct(its)??0}%</b></td></tr>`}).join('')}</tbody></table></div>`;
- const late=all.filter(chkLate).sort(chkSort).slice(0,10);
  const fb=[...all,...S.tasks].flatMap(x=>(x.reviews||[]).map(v=>({v,x}))).sort((a,b)=>(+b.v.at||0)-(+a.v.at||0)).slice(0,8);
- h+=`<div class="grid two" style="margin-top:16px"><div class="card pad"><h3><span class="od">Late items</span><span class="c">${all.filter(chkLate).length||''}</span></h3>${late.length?late.map(i=>chkLi(i,true)).join(''):'<div class="empty small">Nothing late. 🎉</div>'}</div>
- <div class="card pad"><h3>Latest feedback</h3>${fb.length?`<div class="list">${fb.map(({v,x})=>`<div class="li click" data-act="${x.batchId&&x.track?'openChk':'openTask'}" data-id="${esc(x.id)}"><div class="grow"><div class="t">${stars(+v.rating||0)} ${esc(x.title)}</div><div class="small muted">${esc(v.text||'')} — ${esc(v.byName||'')} · ${ago(+v.at||0)}</div></div></div>`).join('')}</div>`:`<div class="empty small">No feedback yet. ${isHod()?'Open any item and rate it — owners see your feedback straight away.':'HoD and team heads can rate items and tasks.'}</div>`}</div></div>`;
+ h+=readinessTeamLists(all,batches);
+ h+=`<details class="card pad rdfb" style="margin-top:16px" ${S.ui.rd.fbOpen?'open':''}><summary data-act="rdFb"><b>Latest feedback</b> <span class="c">${fb.length||''}</span><span class="xs muted"> · ratings and comments from HoD and team heads</span></summary>${fb.length?`<div class="list" style="margin-top:10px">${fb.map(({v,x})=>`<div class="li click" data-act="${x.batchId&&x.track?'openChk':'openTask'}" data-id="${esc(x.id)}"><div class="grow"><div class="t">${stars(+v.rating||0)} ${esc(x.title)}</div><div class="small muted">${esc(v.text||'')} — ${esc(v.byName||'')} · ${ago(+v.at||0)}</div></div></div>`).join('')}</div>`:`<div class="empty small">No feedback yet. ${isHod()?'Open any item and rate it.':'HoD and team heads can rate items.'}</div>`}</details>`;
  return h}
+/* ---------- team lists on Batch readiness: one list per team, switch with the tabs ---------- */
+const RD_ORDER=['placement','course','admin','students','marketing','hod'];
+const RD_LST=[['late','Late','Past the due date and not done'],['week','This week','Due in the next 7 days'],['open','All open','Everything not done yet'],['done','Done','Ticked, newest first']];
+const rdMyTrack=()=>{const t=CHK_TRACKS.find(x=>x.team&&myTeams().includes(x.team));if(t)return t.k;return (S.batches||[]).some(b=>b.coordinatorId===myId()||headsTeam(b.teamId))?'course':'placement'};
+const rdIn=(k,i,t)=>k==='late'?chkLate(i):k==='week'?chkOpen(i)&&okDate(i.due)&&i.due>=t&&i.due<=addDays(t,7):k==='open'?chkOpen(i):i.status==='done';
+function readinessTeamLists(all,batches){const f=S.ui.rd;const t=today();
+ const tracks=RD_ORDER.map(chkTrack).filter(tr=>all.some(i=>i.track===tr.k));if(!tracks.length)return '';
+ let saved='';try{saved=localStorage.getItem('ek_rdteam')||''}catch{}
+ const want=f.team||saved||rdMyTrack();const k=tracks.some(x=>x.k===want)?want:tracks[0].k;const tr=chkTrack(k);
+ const bset=batches.filter(b=>all.some(i=>i.batchId===b.id&&i.track===k));const lb=bset.some(b=>b.id===f.lb)?f.lb:'';
+ const its=all.filter(i=>i.track===k&&(!lb||i.batchId===lb)&&(!f.mine||i.ownerId===myId()||isChkChecker(i)));const lst=RD_LST.some(x=>x[0]===f.lst)?f.lst:'late';
+ const list=its.filter(i=>rdIn(lst,i,t)).sort(lst==='done'?(a,x)=>(+x.doneAt||0)-(+a.doneAt||0):chkSort);const shown=f.more?list:list.slice(0,12);
+ const sm=!!f.selMode;const sel=new Set((f.sel||[]).filter(id=>its.some(i=>i.id===id)));
+ const canBulk=its.some(i=>chkProg(i)&&chkOpen(i));const newN=batches.filter(b=>canSetupChk(b)&&(!lb||b.id===lb)).reduce((a,b)=>a+chkMissing(b).filter(r=>r.track===k).length,0);
+ const p=chkPct(its)??0;const nDone=its.filter(i=>i.status==='done').length,nAll=its.filter(i=>i.status!=='na').length;
+ const owners=[...new Set(its.map(i=>i.ownerId).filter(Boolean))];const tids=[...new Set(its.map(i=>i.teamId).filter(Boolean))];
+ const ckChips=tids.map(tid=>{const ids=chkCheckerIds(k,tid);const nm=ids.map(memberOf).filter(Boolean).map(m=>esc(m.name)).join(', ');const can=canSetChecker(tid);const tn=tids.length>1?esc(teamOf(tid)?.name||tid)+' · ':'';
+  return `<button class="chip rdck ${nm?'on':''}" ${can?`data-act="chkChecker" data-k="${k}" data-tm="${esc(tid)}"`:'disabled'} title="Checker: one more person who can tick ${esc(tr.name)} items, besides each item's owner and the team head.${can?' Click to change.':''}">✔ ${tn}${nm||(can?'+ Add checker':'No checker')}</button>`}).join('');
+ const emp={late:`Nothing late for ${esc(tr.name)} 🎉`,week:'Nothing due in the next 7 days.',open:`All ${esc(tr.name)} items are done 🎉`,done:'Nothing ticked yet.'}[lst];
+ return `<div class="card pad rdteams" style="margin-top:16px">
+ <div class="rdhead"><h3 style="margin:0">Team lists <span class="xs muted" title="Each team keeps its own list. Switch teams with the tabs. Your choice is remembered. Ticking: the item's owner, the team head, or the team's checker.">ⓘ</span></h3><span class="sp"></span>
+ <button class="chip ${f.mine?'on':''}" data-act="rdMine2" aria-pressed="${!!f.mine}" title="Only items you own or can tick as checker">👤 Mine</button>
+ ${canBulk&&!sm?`<button class="chip" data-act="rdSelMode" title="Tick or close many items at once, e.g. work done but never ticked">☑ Select</button>`:''}
+ ${newN?`<button class="chip" data-act="chkSyncTrack" data-v="${k}" data-b="${esc(lb)}" title="Standard activities added after these lists were set up">＋ ${newN} new standard items</button>`:''}
+ ${bset.length>1?`<select class="inp sm" data-change="rdlb" aria-label="Batch" style="width:auto"><option value="">All batches</option>${bset.map(b=>`<option value="${esc(b.id)}" ${lb===b.id?'selected':''}>${esc(b.name)}</option>`).join('')}</select>`:''}</div>
+ <div class="toggle rdtabs" role="tablist" aria-label="Team">${tracks.map(x=>{const xi=all.filter(i=>i.track===x.k&&(!lb||i.batchId===lb));const l=xi.filter(chkLate).length;
+  return `<button role="tab" aria-selected="${x.k===k}" class="${x.k===k?'on':''}" style="--c:${x.c}" data-act="rdTeam" data-v="${x.k}" title="${esc(x.about)}\n${xi.filter(i=>i.status==='done').length} of ${xi.filter(i=>i.status!=='na').length} done · ${l} late"><span aria-hidden="true">${x.icon}</span> ${esc(x.name)}${l?`<span class="rdl" aria-label="${l} late">${l}</span>`:''}</button>`}).join('')}</div>
+ <div class="rdsum"><div class="bar" style="--c:${tr.c};flex:1;min-width:120px" title="${nDone} of ${nAll} done"><i style="width:${p}%"></i></div><b>${p}%</b><span class="xs muted">${nDone}/${nAll} done</span>
+  <span class="rdwho" title="Owners of these items">${avatars(owners,4,'sm')}</span>${ckChips}</div>
+ <div class="toggle rdlst" role="tablist" aria-label="Show">${RD_LST.map(([x,l,tip])=>{const n=its.filter(i=>rdIn(x,i,t)).length;return `<button role="tab" aria-selected="${x===lst}" class="${x===lst?'on':''}" data-act="rdLst" data-v="${x}" title="${tip}">${l} <span class="${x==='late'&&n?'od':'muted'}">${n}</span></button>`}).join('')}</div>
+ ${sm?`<div class="rdbulk"><b>${sel.size} selected</b><button class="btn sm ghost" data-act="rdSelAll" data-v="shown">Select all shown</button>${lst!=='late'?`<button class="btn sm ghost" data-act="rdSelAll" data-v="late">Select all late</button>`:''}${sel.size?`<button class="btn sm ghost" data-act="rdSelAll" data-v="none">Clear</button>`:''}<span class="sp"></span><button class="btn sm pri" data-act="rdBulk" data-v="done" ${sel.size?'':'disabled'}>✓ Mark done</button><button class="btn sm" data-act="rdBulk" data-v="na" ${sel.size?'':'disabled'}>Not needed</button><button class="btn sm ghost" data-act="rdSelMode">Cancel</button></div>`:''}
+ <div class="rdlist">${shown.length?shown.map(i=>sm?`<label class="rdsel ${chkProg(i)?'':'off'}" title="${chkProg(i)?'':'Only the owner, team head or checker can tick this'}"><input type="checkbox" data-change="rdsel" value="${esc(i.id)}" ${sel.has(i.id)?'checked':''} ${chkProg(i)&&chkOpen(i)?'':'disabled'} aria-label="Select ${esc(i.title)}">${chkLi(i,bset.length>1&&!lb,true)}</label>`:chkLi(i,bset.length>1&&!lb,true)).join(''):`<div class="empty small">${emp}</div>`}</div>
+ ${list.length>12?`<button class="btn sm ghost" data-act="rdMore" style="margin-top:8px">${f.more?'Show fewer':`Show all ${list.length}`}</button>`:''}</div>`}
+function openChkChecker(k,tid){if(!canSetChecker(tid))return;const tr=chkTrack(k);const tm=teamOf(tid);const cur=chkCheckerIds(k,tid)[0]||'';
+ const pool=teamMembers(tid);const others=[...S.members].filter(m=>!pool.some(x=>x.id===m.id)).sort(byName);
+ const opt=x=>`<option value="${esc(x.id)}" ${x.id===cur?'selected':''}>${esc(x.name)}</option>`;
+ const m=openModal({title:`${tr.icon} ${tr.name} checker${tm?` · ${tm.name}`:''}`,body:`<div class="small muted">One more person who can tick ${esc(tr.name)} items as done, besides each item's owner and the team head. They can't change dates, owners or feedback.</div>
+ <div class="fld"><label for="ckc_m">Checker</label><select class="inp" id="ckc_m"><option value="">— No checker —</option>${pool.length?`<optgroup label="${esc(tm?.name||'Team')}">${pool.map(opt).join('')}</optgroup>`:''}<optgroup label="Everyone else">${others.map(opt).join('')}</optgroup></select></div>`,
+ foot:`<span class="sp"></span><button class="btn" data-c>Cancel</button><button class="btn pri" data-s>Save</button>`});
+ const r=m.el;V(r,'[data-c]').onclick=()=>m.close();
+ V(r,'[data-s]').onclick=async()=>{const v=V(r,'#ckc_m').value;const id=k+'|'+tid;const patch={memberIds:v?[v]:[],byName:me()?.name||'',updatedAt:Date.now()};const ex=(S.chkcheckers||[]).some(c=>c.id===id);
+  V(r,'[data-s]').disabled=true;
+  if(await run(()=>ex?BE.update('chkcheckers',id,patch):BE.add('chkcheckers',{id,track:k,teamId:tid,...patch}),v?`${memberOf(v)?.name||'They'} can now tick ${tr.name} items`:'Checker removed','chkcheckers')){log(`set the ${tr.name} checker${tm?' for '+tm.name:''}: ${v?memberOf(v)?.name:'none'}`,'info');m.close()}else V(r,'[data-s]').disabled=false}}
+/* ---------- standard items added later: bring them into batches that were set up earlier ---------- */
+function chkMissing(b){const items=chkOf(b.id);if(!items.length||!okDate(b.start))return [];const out=[];
+ for(const k of [...new Set(items.map(i=>i.track))]){if(!CHK_TEMPLATE[k])continue;const its=items.filter(i=>i.track===k);const have=new Set(its.map(i=>(i.title||'').trim().toLowerCase()));
+  const cnt={};its.forEach(i=>{if(i.ownerId)cnt[i.ownerId]=(cnt[i.ownerId]||0)+1});const owner=Object.entries(cnt).sort((a,x)=>x[1]-a[1])[0]?.[0]||'';
+  for(const r of chkRows(b,k,owner)){if(['quiz','labexam','result'].includes((r.meta||{}).kind))continue;if(!have.has(r.title.trim().toLowerCase()))out.push(r)}}
+ return out}
+const chkNewCount=b=>cached('chknew:'+b.id+':'+(S.checks||[]).length,()=>chkMissing(b).length);
+function openChkSync(batchIds,track){const t=today();const groups=batchIds.map(id=>S.batches.find(b=>b.id===id)).filter(b=>b&&canSetupChk(b)).map(b=>({b,rows:chkMissing(b).filter(r=>!track||r.track===track)})).filter(g=>g.rows.length);
+ if(!groups.length){toast('Everything is up to date.');return}
+ const anyPast=groups.some(g=>g.rows.some(r=>r.due&&r.due<t));let n=0;const all=[];
+ const m=openModal({title:'New standard items',wide:true,body:`<div class="small muted">These were added to Ekatra's standard lists after the checklists below were set up. Untick any you don't want. Owner = the person who owns most of that team's items.</div>
+ ${groups.map(g=>`<div class="phase"><h4>${esc(g.b.name)}<span class="pill">${g.rows.length}</span></h4>${g.rows.map(r=>{const id=n++;all.push(r);const tr=chkTrack(r.track);return `<label class="li" style="gap:10px"><input type="checkbox" name="cks_r" value="${id}" checked><div class="grow"><div class="t">${tr.icon} ${esc(r.title)}</div><div class="xs muted">${esc(tr.name)} · ${esc(memberOf(r.ownerId)?.name||'No owner')}</div></div><span class="meta ${r.due&&r.due<t?'od':''}">${okDate(r.due)?fmtDay(r.due):'—'}</span></label>`}).join('')}</div>`).join('')}
+ ${anyPast?`<div class="fld"><label>Items whose date has already passed</label><label style="display:flex;gap:8px;align-items:center"><input type="radio" name="cks_past" value="keep" checked> Add as to-do — owners tick what was done</label><label style="display:flex;gap:8px;align-items:center"><input type="radio" name="cks_past" value="done"> Add as done</label><label style="display:flex;gap:8px;align-items:center"><input type="radio" name="cks_past" value="skip"> Leave them out</label></div>`:''}`,
+ foot:`<span class="sp"></span><button class="btn" data-c>Cancel</button><button class="btn pri" data-s>Add items</button>`});
+ const r=m.el;V(r,'[data-c]').onclick=()=>m.close();
+ V(r,'[data-s]').onclick=async()=>{const pick=checked(r,'cks_r').map(Number);const mode=checked(r,'cks_past')[0]||'keep';const now=Date.now();
+  const rows=pick.map(i=>({...all[i]})).filter(x=>!(mode==='skip'&&x.due&&x.due<t)).map(x=>(mode==='done'&&x.due&&x.due<t)?{...x,status:'done',doneAt:now}:x);
+  if(!rows.length){toast('Nothing picked.','error');return}V(r,'[data-s]').disabled=true;
+  if(await run(()=>BE.addMany('checks',rows),`${rows.length} items added`,'checks')){log(`added ${rows.length} new standard checklist items`,'info');m.close()}else V(r,'[data-s]').disabled=false}}
+/* ---------- tick many at once ---------- */
+function openChkBulk(st){const f=S.ui.rd;const items=(f.sel||[]).map(id=>(S.checks||[]).find(x=>x.id===id)).filter(i=>i&&chkProg(i)&&chkOpen(i));if(!items.length)return;
+ const t=today();const past=items.some(i=>okDate(i.due)&&i.due<t);
+ const m=openModal({title:st==='done'?`Mark ${items.length} items done`:`Mark ${items.length} items not needed`,body:`<div class="list">${items.slice(0,8).map(i=>`<div class="li"><div class="grow">${esc(i.title)}<div class="xs muted">${esc(S.batches.find(b=>b.id===i.batchId)?.name||'')}</div></div><span class="meta">${fmtDay(i.due)}</span></div>`).join('')}${items.length>8?`<div class="xs muted" style="padding:6px 10px">+ ${items.length-8} more</div>`:''}</div>
+ ${st==='done'&&past?`<div class="fld"><label>Completed on</label><label style="display:flex;gap:8px;align-items:center"><input type="radio" name="ckb_on" value="due" checked> Each item's due date — the work was done on time, just not ticked</label><label style="display:flex;gap:8px;align-items:center"><input type="radio" name="ckb_on" value="today"> Today</label></div>`:''}`,
+ foot:`<span class="sp"></span><button class="btn" data-c>Cancel</button><button class="btn pri" data-s>${st==='done'?'✓ Mark done':'Mark not needed'}</button>`});
+ const r=m.el;V(r,'[data-c]').onclick=()=>m.close();
+ V(r,'[data-s]').onclick=async()=>{const onDue=(checked(r,'ckb_on')[0]||'today')==='due';const now=Date.now();V(r,'[data-s]').disabled=true;let ok=0;
+  for(let x=0;x<items.length;x+=10){await Promise.all(items.slice(x,x+10).map(async i=>{const at=st==='done'?(onDue&&okDate(i.due)&&i.due<t?new Date(i.due+'T17:00:00').getTime():now):null;
+   try{await BE.update('checks',i.id,{status:st,doneAt:at,...(st==='done'?{blocked:''}:{}),updates:[...(i.updates||[]).slice(-79),{...actor(),at:now,text:`Status: ${chkStLabel(i.status)} → ${chkStLabel(st)} (bulk)`}],updatedAt:now});ok++}catch{}}))}
+  await reload('checks');toast(ok===items.length?`${ok} items updated`:`${ok} of ${items.length} updated — the rest you can't change`,ok===items.length?'':'error');
+  if(ok){log(`marked ${ok} checklist items ${chkStLabel(st)}`,'info');if(st==='done')celebrateSmall('Checklist items done',`${ok} items`)}
+  Object.assign(S.ui.rd,{sel:[],selMode:false});m.close();render()}}
 function readinessItems(all,batches){const f=S.ui.rd;const t=today();
  let list=all.filter(i=>(!f.batch||i.batchId===f.batch)&&(!f.track||i.track===f.track)&&(!f.who||(f.who==='me'?i.ownerId===myId():i.ownerId===f.who))&&(f.st==='all'||(f.st==='open'?chkOpen(i):f.st==='late'?chkLate(i):f.st==='done'?i.status==='done':true)));
  let h=`<div class="toolbar"><select class="inp" data-change="rdb" aria-label="Batch"><option value="">All batches</option>${batches.map(b=>`<option value="${esc(b.id)}" ${f.batch===b.id?'selected':''}>${esc(b.name)}</option>`).join('')}</select>
@@ -3952,7 +4128,7 @@ function viewMyWork(){const t=today(),nwd=nextWorkDay(t),wk=addDays(t,7);const h
  <div style="display:flex;flex-direction:column;gap:16px">
   <div class="card pad sugcard"><h3>✨ Ekatra suggests<span class="c">${sug.length||''}</span></h3>${sug.length?`<div class="list">${sug.slice(0,8).map(sugLi).join('')}</div>${sug.length>8?`<div class="small muted" style="padding:6px 2px">+${sug.length-8} more once these are done</div>`:''}`:'<div class="empty small">You are on top of everything. 🎉</div>'}</div>
   <div class="card pad"><h3>My initiative milestones<span class="c">${mss.length||''}</span></h3>${mss.length?`<div class="list">${mss.slice(0,12).map(msLi).join('')}</div>`:'<div class="empty small">You don’t own any open milestones.</div>'}</div>
-  ${inits.length?`<div class="card pad"><h3>Initiatives I own<span class="c">${inits.length}</span></h3><div style="display:flex;gap:6px;flex-wrap:wrap">${inits.map(i=>`<button class="cat click" style="--c:${KIND_COL(i.kind)}" data-act="openInit" data-id="${esc(i.id)}">${esc(i.name)} · ${initProg(i)!=null?initProg(i)+'%':esc(i.status)}</button>`).join('')}</div></div>`:''}
+  ${inits.length?`<div class="card pad"><h3>Initiatives I own<span class="c">${inits.length}</span></h3><div style="display:flex;gap:6px;flex-wrap:wrap">${initChips(inits)}</div></div>`:''}
  </div></div>`;
  return h}
 
@@ -4010,8 +4186,8 @@ function createMenu(el){const items=[];
 function moreMenu(el){const un=unreadNotices().length;const ks=['reminders','initiatives','placements','participation','notices','leave','insights','reports','docs','teams','people','timeline'];
  popMenu(el,ks.map(k=>`<button data-r="${k}">${ICON[k]}<span><b style="font-weight:500">${(ROUTES.find(r=>r[0]===k)||[])[1]}</b></span>${k==='notices'&&un?`<span class="cnt" style="margin-left:auto;background:var(--pink);color:#fff;border-radius:8px;padding:0 6px;font-size:11px">${un}</span>`:''}</button>`).join('')+`<button data-r="_me">${ICON.people}<span><b style="font-weight:500">My profile</b></span></button><button data-r="_out">${ICON.logout}<span><b style="font-weight:500">Sign out</b></span></button>`,
  m=>m.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{closeMenu();const r=b.dataset.r;if(r==='_out')signOut();else if(r==='_me')ACT.myProfile({dataset:{}});else go(r)}))}
-function meMenu(el){popMenu(el,`<button data-r="me">${ICON.people}<span><b style="font-weight:500">My profile</b><small>Tasks, work done, participation</small></span></button><button data-r="st"><span style="width:18px;text-align:center">${esc(statusOf(me())?.e||'💬')}</span><span><b style="font-weight:500">Set status</b><small>${esc(statusOf(me())?.t||'Let colleagues know where you are')}</small></span></button><button data-r="pz"><span style="width:18px;text-align:center">🎨</span><span><b style="font-weight:500">Personalise</b><small>Colour, name, home page</small></span></button><button data-r="edit">${ICON.tasks}<span><b style="font-weight:500">Edit my profile</b></span></button><button data-r="pw">${ICON.key}<span><b style="font-weight:500">Change password</b></span></button><button data-r="out">${ICON.logout}<span><b style="font-weight:500">Sign out</b><small>${esc(S.session?.user?.email||'')}</small></span></button>`,
- m=>m.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{closeMenu();const r=b.dataset.r;if(r==='me')ACT.myProfile({dataset:{}});if(r==='edit')openMemberForm(me());if(r==='pw')changePassword();if(r==='st')openStatus();if(r==='pz')openPersonalise();if(r==='out')signOut()}))}
+function meMenu(el){popMenu(el,`<button data-r="me">${ICON.people}<span><b style="font-weight:500">My profile</b><small>Tasks, work done, participation</small></span></button><button data-r="st"><span style="width:18px;text-align:center">${esc(statusOf(me())?.e||'💬')}</span><span><b style="font-weight:500">Set status</b><small>${esc(statusOf(me())?.t||'Let colleagues know where you are')}</small></span></button><button data-r="pz"><span style="width:18px;text-align:center">🎨</span><span><b style="font-weight:500">Personalise</b><small>Colour, name, home page</small></span></button><button data-r="edit">${ICON.tasks}<span><b style="font-weight:500">Edit my profile</b></span></button><button data-r="tour"><span style="width:18px;text-align:center">🧭</span><span><b style="font-weight:500">Take the tour</b><small>A 1-minute walk through Ekatra</small></span></button><button data-r="pw">${ICON.key}<span><b style="font-weight:500">Change password</b></span></button><button data-r="out">${ICON.logout}<span><b style="font-weight:500">Sign out</b><small>${esc(S.session?.user?.email||'')}</small></span></button>`,
+ m=>m.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{closeMenu();const r=b.dataset.r;if(r==='me')ACT.myProfile({dataset:{}});if(r==='edit')openMemberForm(me());if(r==='pw')changePassword();if(r==='st')openStatus();if(r==='pz')openPersonalise();if(r==='out')signOut();if(r==='tour')startTour(true)}))}
 const ACT={
  go:el=>go(el.dataset.route),createMenu:el=>openMenu?closeMenu():createMenu(el),moreMenu:el=>openMenu?closeMenu():moreMenu(el),meMenu:el=>openMenu?closeMenu():meMenu(el),
  homeView:el=>{S.ui.homeView=el.dataset.v;store.set('homeView',el.dataset.v);render()},
@@ -4020,7 +4196,7 @@ const ACT={
  assignTo:el=>{const mm=memberOf(el.dataset.id);openTaskForm(null,{assigneeIds:[el.dataset.id],ownerId:el.dataset.id,teamId:(mm?.teamIds||[]).find(leadsTeam)})},
  taskForInit:el=>{const i=S.inits.find(x=>x.id===el.dataset.id);openTaskForm(null,{initiativeId:i.id,teamId:i.teamId,visibility:i.visibility})},
  openTask:el=>{const card=el&&el.closest?el.closest('.tk,.li,tr,.attn'):null;morphOpen(card,()=>openTask(el.dataset.id))},inDue:el=>inDue(el),inPrio:el=>inPrio(el),inWho:el=>inWho(el),cmd:()=>openCommand(),openChk:el=>openChk(el.dataset.id),chkToggle:el=>chkToggle(el),chkSetup:el=>{const x=S.batches.find(y=>y.id===el.dataset.id);if(x)openChkSetup(x)},chkAdd:el=>openChkForm(null,{batchId:el.dataset.id,track:el.dataset.t||'course'}),chkTab:el=>{S.ui.chkTab=el.dataset.v;render()},chkModules:el=>{const x=S.batches.find(y=>y.id===el.dataset.id);if(x)chkAddModules(x)},
- rdView:el=>{S.ui.rd.view=el.dataset.v;render()},rdSt:el=>{S.ui.rd.st=el.dataset.v;render()},rdCell:el=>{Object.assign(S.ui.rd,{view:'items',batch:el.dataset.b,track:el.dataset.t,who:'',st:'all'});render()},rdMine:()=>{Object.assign(S.ui.rd,{view:'items',batch:'',track:'',who:'me',st:'open'});go('readiness')},rdExport:()=>exportChecklist(),openReadiness:el=>{Object.assign(S.ui.rd,{view:'items',batch:el.dataset.b||'',track:'',who:el.dataset.w||'',st:el.dataset.st||'open'});go('readiness')},
+ rdView:el=>{S.ui.rd.view=el.dataset.v;render()},rdMine2:()=>{S.ui.rd.mine=!S.ui.rd.mine;S.ui.rd.more=false;render()},rdSelMode:()=>{S.ui.rd.selMode=!S.ui.rd.selMode;S.ui.rd.sel=[];render()},rdSelAll:el=>{const v=el.dataset.v;if(v==='none'){S.ui.rd.sel=[];render();return}const ids=[...document.querySelectorAll('.rdlist input[data-change="rdsel"]:not(:disabled)')].map(x=>x.value);const late=v==='late'?new Set((S.checks||[]).filter(chkLate).map(i=>i.id)):null;S.ui.rd.sel=[...new Set([...(S.ui.rd.sel||[]),...(late?[...late].filter(id=>{const i=S.checks.find(x=>x.id===id);return i&&i.track===(S.ui.rd.team||'')&&chkProg(i)}):ids)])];render()},rdBulk:el=>openChkBulk(el.dataset.v),chkSync:el=>openChkSync([el.dataset.id]),chkSyncTrack:el=>openChkSync(el.dataset.b?[el.dataset.b]:S.batches.map(b=>b.id),el.dataset.v),rdTeam:el=>{S.ui.rd.team=el.dataset.v;S.ui.rd.more=false;try{localStorage.setItem('ek_rdteam',el.dataset.v)}catch{}render()},rdLst:el=>{S.ui.rd.lst=el.dataset.v;S.ui.rd.more=false;render()},rdMore:()=>{S.ui.rd.more=!S.ui.rd.more;render()},rdFb:()=>{S.ui.rd.fbOpen=!S.ui.rd.fbOpen;render()},chkChecker:el=>openChkChecker(el.dataset.k,el.dataset.tm),rdSt:el=>{S.ui.rd.st=el.dataset.v;render()},rdCell:el=>{Object.assign(S.ui.rd,{view:'items',batch:el.dataset.b,track:el.dataset.t,who:'',st:'all'});render()},rdMine:()=>{Object.assign(S.ui.rd,{view:'items',batch:'',track:'',who:'me',st:'open'});go('readiness')},rdExport:()=>exportChecklist(),openReadiness:el=>{Object.assign(S.ui.rd,{view:'items',batch:el.dataset.b||'',track:'',who:el.dataset.w||'',st:el.dataset.st||'open'});go('readiness')},
  ckWeek:el=>{S.ui.ck.off=+el.dataset.v;render()},ckSave:el=>ckSave(el),
  tmode:el=>{S.ui.tmode=el.dataset.v;render()},planStep:el=>planStep(el),eveningSummary:()=>eveningSummary(true),fToggle:()=>{S.ui.fOpen=!S.ui.fOpen;render()},tview:el=>{S.ui.tview=el.dataset.v;render()},tsort:el=>{S.ui.tsort=el.dataset.k;render()},exportTasks:()=>exportTasks(),
  newEvent:el=>openEventForm(null,el.dataset.d?{date:el.dataset.d,...(el.dataset.sun?{type:'Session',title:'Extra lecture: ',allDay:false}:{})}:{}),openOpp:el=>openOpp(el.dataset.id),oppInterest:el=>oppInterest(el.dataset.id),oppK:el=>{(S.ui.opp||(S.ui.opp={k:'open',q:''})).k=el.dataset.v;render()},oppNew:el=>openOppForm(null,el.dataset.id),oppImport:el=>openOppImport(el.dataset.id),recPlaced:el=>openPlacedForm(el.dataset.id),delPlaced:el=>delPlaced(el.dataset.id),newSeminar:el=>openSeminarForm(null,el.dataset.d?{date:el.dataset.d}:{}),evOwners:()=>openEvOwners(),openEvent:el=>openEvent(el.dataset.id),
@@ -4086,7 +4262,7 @@ document.addEventListener('change',e=>{const t=e.target;const k=t.dataset.change
   pperiod:()=>p.period=t.value,pcat:()=>p.cat=t.value,pteam:()=>p.team=t.value,pwho:()=>p.who=t.value,pbatch:()=>p.batch=t.value,
   ikind:()=>i.kind=t.value,istatus:()=>i.status=t.value,iteam:()=>i.team=t.value,calSess:()=>S.ui.cal.sessions=t.checked,
   nexp:()=>S.ui.nf.expired=t.checked,lteam:()=>S.ui.lf.team=t.value,dcat:()=>S.ui.df.cat=t.value,dteam:()=>S.ui.df.team=t.value,
-  repId:()=>S.ui.rep.id=t.value,plbatch:()=>S.ui.plc.batch=t.value,cstage:()=>S.ui.plc.cstage=t.value,insTeam:()=>S.ui.ins.team=t.value,rddone:()=>S.ui.rd.done=t.checked,ckteam:()=>S.ui.ck.team=t.value,rdb:()=>S.ui.rd.batch=t.value,rdt:()=>S.ui.rd.track=t.value,rdw:()=>S.ui.rd.who=t.value,repMonth:()=>{if(/^\d{4}-\d{2}$/.test(t.value))S.ui.rep.month=t.value}})[k]?.();render()});
+  repId:()=>S.ui.rep.id=t.value,plbatch:()=>S.ui.plc.batch=t.value,cstage:()=>S.ui.plc.cstage=t.value,insTeam:()=>S.ui.ins.team=t.value,rddone:()=>S.ui.rd.done=t.checked,ckteam:()=>S.ui.ck.team=t.value,rdb:()=>S.ui.rd.batch=t.value,rdt:()=>S.ui.rd.track=t.value,rdw:()=>S.ui.rd.who=t.value,rdsel:()=>{const set=new Set(S.ui.rd.sel||[]);t.checked?set.add(t.value):set.delete(t.value);S.ui.rd.sel=[...set]},rdlb:()=>{S.ui.rd.lb=t.value;S.ui.rd.more=false},repMonth:()=>{if(/^\d{4}-\d{2}$/.test(t.value))S.ui.rep.month=t.value}})[k]?.();render()});
 const deb=debounce(()=>render(),140);
 document.addEventListener('input',e=>{const k=e.target.dataset.input;if(!k)return;const v=e.target.value;({tq:()=>S.ui.tf.q=v,mq:()=>S.ui.memQ=v,pq:()=>S.ui.pf.q=v,iq:()=>S.ui.inf.q=v,dq:()=>S.ui.df.q=v,plq:()=>S.ui.plc.q=v,cq:()=>S.ui.plc.cq=v,oppq:()=>(S.ui.opp||(S.ui.opp={k:'open',q:''})).q=v})[k]?.();deb()});
 window.addEventListener('hashchange',()=>{const r=location.hash.slice(1);if(S.loaded&&r&&r!==S.route&&ROUTES.some(x=>x[0]===r)){S.route=r;render()}});
@@ -4104,7 +4280,7 @@ async function afterLogin(){S.loaded=false;shellBuilt=false;buildShell();render(
  startPresence();
  if(!liveOn){liveOn=true;BE.live(onLive,s=>{const ok=s==='SUBSCRIBED';if(ok!==S.online){S.online=ok;schedule()}})}
  setInterval(()=>{if(document.visibilityState==='visible'&&S.loaded){reload(['tasks','events','activity','notices','reminders']);if(me()&&!modalStack.length)eveningSummary(false)}},120000);
- setTimeout(()=>{if(S.loaded&&me()&&!modalStack.length){todaySummary(false);if(!modalStack.length)eveningSummary(false)}},700);
+ setTimeout(()=>{if(S.loaded&&me()&&!modalStack.length&&!maybeTour()){todaySummary(false);if(!modalStack.length)eveningSummary(false)}},700);
 }
 (async()=>{
  if(!window.supabase&&!window.__EKATRA_BACKEND__){$('#root').innerHTML='<div class="loading">Could not load the login library. Check the internet connection and refresh.</div>';return}
@@ -4113,5 +4289,148 @@ async function afterLogin(){S.loaded=false;shellBuilt=false;buildShell();render(
  BE.onAuth((ev,s)=>{if(ev==='SIGNED_OUT'){S.session=null;S.loaded=false;shellBuilt=false;authMode='login';renderAuth()}else if(s)S.session=s});
  if(S.session)await afterLogin();else renderAuth();
 })();
+/* =====================================================================
+   EKATRA PLUS (23 Nov 2026)
+   1. Programmes: initiatives that share a prefix ("M2030 · …") are clubbed
+      into one programme — e.g. all Mission 2030 work together, with overall
+      progress, status mix, teams and owners.
+   2. Hover previews: rest the mouse on any task, initiative, checklist item,
+      batch, event or person to see its key details without opening it.
+   ===================================================================== */
+const PROG_NAMES={M2030:'Mission 2030'};
+const PROG_SEP=' · ';
+function progKeyOf(i){const n=String(i?.name||'');const k=n.indexOf(PROG_SEP);if(k<1||k>24)return '';return n.slice(0,k).trim()}
+function programmes(list){const m=new Map();for(const i of list){const k=progKeyOf(i);if(!k)continue;if(!m.has(k))m.set(k,[]);m.get(k).push(i)}
+ for(const[k,v]of[...m])if(v.length<2&&!PROG_NAMES[k])m.delete(k);return m}
+const progName=k=>PROG_NAMES[k]||k;
+const shortInitName=i=>{const k=progKeyOf(i);return k?String(i.name).slice(k.length+PROG_SEP.length):i.name};
+function progStats(its){const t=today();const ps=its.map(initProg).filter(p=>p!=null);
+ return{n:its.length,avg:ps.length?Math.round(ps.reduce((a,b)=>a+b,0)/ps.length):0,
+  late:its.filter(i=>okDate(i.targetDate)&&i.targetDate<t&&!['Completed','Live','On hold'].includes(i.status)).length,
+  teams:[...new Set(its.map(i=>i.teamId).filter(Boolean))],owners:[...new Set(its.map(i=>i.ownerId).filter(Boolean))],
+  noOwner:its.filter(i=>!memberOf(i.ownerId)).length,
+  status:INIT_STATUS.map(s=>[s,its.filter(i=>i.status===s).length]).filter(([,n])=>n),
+  next:its.flatMap(i=>(i.milestones||[]).filter(m=>!m.done&&okDate(m.due)).map(m=>({m,i}))).sort((a,b)=>a.m.due.localeCompare(b.m.due))[0]}}
+function statusStrip(st,h=8){const tot=st.reduce((a,[,n])=>a+n,0)||1;return `<div class="statusbar" style="height:${h}px">${st.map(([s,n])=>`<i style="width:${n/tot*100}%;background:${INIT_STATUS_COL[s]||'#64748b'}" title="${esc(s)}: ${n}"></i>`).join('')}</div>`}
+
+/* programme panel on the Initiatives page */
+function progPanel(k,its,fixed){const s=progStats(its);const open=fixed||(S.ui.progOpen||(S.ui.progOpen={}))[k]!==false;const tf=(S.ui.progTeam||(S.ui.progTeam={}))[k]||'';
+ const shown=tf?its.filter(i=>i.teamId===tf):its;
+ const byTeam=s.teams.map(t=>[t,its.filter(i=>i.teamId===t).length]).sort((a,b)=>b[1]-a[1]);
+ return `<section class="prog ${open?'open':''}" style="--c:var(--p)">
+ <div class="prog-h" ${fixed?'':`data-act="progToggle" data-k="${esc(k)}" role="button" tabindex="0" aria-expanded="${open}"`}>
+  ${ring(s.avg,'var(--p)')}
+  <div class="prog-t"><div class="prog-k">${esc(k)}</div><h2>${esc(progName(k))}</h2>
+   <div class="small muted">${s.n} initiatives · ${s.teams.length} teams · ${s.owners.length} owners${s.late?` · <span class="od">${s.late} past target</span>`:''}${s.noOwner?` · <span class="od">${s.noOwner} without owner</span>`:''}</div>
+   <div style="margin-top:8px;max-width:520px">${statusStrip(s.status)}<div class="legend">${s.status.map(([st,n])=>`<span style="--c:${INIT_STATUS_COL[st]}">${esc(st)} ${n}</span>`).join('')}</div></div></div>
+  <div class="prog-r">${avatars(s.owners,6)}${s.next?`<div class="xs muted" style="margin-top:8px;text-align:right">Next milestone: <b>${esc(s.next.m.title)}</b><br>${fmtDay(s.next.m.due)} · ${esc(shortInitName(s.next.i))}</div>`:''}${fixed?'':'<span class="prog-chev" aria-hidden="true">›</span>'}</div>
+ </div>
+ ${open?`<div class="prog-b"><div class="prog-f"><button class="chip ${!tf?'on':''}" data-act="progTeam" data-k="${esc(k)}" data-v="">All ${s.n}</button>${byTeam.map(([t,n])=>`<button class="chip ${tf===t?'on':''}" data-act="progTeam" data-k="${esc(k)}" data-v="${esc(t)}"><span class="dot" style="background:${col(teamOf(t)?.color)}"></span>${esc(teamOf(t)?.name||t)} ${n}</button>`).join('')}</div>
+  <div class="grid cards-grid">${shown.map(i=>initCard({...i,name:shortInitName(i)})).join('')}</div></div>`:''}
+ </section>`}
+function initGrouped(list){const pm=programmes(list);const inProg=new Set([...pm.values()].flat().map(i=>i.id));const rest=list.filter(i=>!inProg.has(i.id));
+ let h=[...pm.entries()].sort((a,b)=>b[1].length-a[1].length).map(([k,v])=>progPanel(k,v)).join('');
+ if(rest.length)h+=`${pm.size?`<div class="sec-title">Other initiatives<span class="c">${rest.length}</span></div>`:''}<div class="grid cards-grid">${rest.map(initCard).join('')}</div>`;
+ return h}
+
+/* "Initiatives I own" chips: one chip per programme */
+function initChips(inits){const pm=programmes(inits);const inProg=new Set([...pm.values()].flat().map(i=>i.id));
+ return [...pm.entries()].map(([k,v])=>{const s=progStats(v);return `<button class="cat click" style="--c:var(--p)" data-act="go" data-route="initiatives" data-hover="prog:${esc(k)}:mine">${esc(progName(k))} · ${v.length} · ${s.avg}%</button>`}).join('')
+  +inits.filter(i=>!inProg.has(i.id)).map(i=>`<button class="cat click" style="--c:${KIND_COL(i.kind)}" data-act="openInit" data-id="${esc(i.id)}">${esc(i.name)} · ${initProg(i)!=null?initProg(i)+'%':esc(i.status)}</button>`).join('')}
+
+Object.assign(ACT,{
+ progToggle:el=>{const k=el.dataset.k;(S.ui.progOpen||(S.ui.progOpen={}))[k]=!(S.ui.progOpen[k]!==false);render()},
+ progTeam:el=>{(S.ui.progTeam||(S.ui.progTeam={}))[el.dataset.k]=el.dataset.v;render()}});
+
+/* ---------------- hover previews ---------------- */
+const hv={el:null,t:0,cur:null};
+function hvBox(){if(!hv.el){hv.el=document.createElement('div');hv.el.className='hovcard';hv.el.setAttribute('role','tooltip');hv.el.hidden=true;document.body.appendChild(hv.el)}return hv.el}
+function hvRow(k,v){return v?`<div class="hv-r"><span>${k}</span><b>${v}</b></div>`:''}
+function hvBar(p,c){return p==null?'':`<div class="bar" style="--c:${c};margin:8px 0 2px"><i style="width:${p}%"></i></div><div class="xs muted">${p}% done</div>`}
+function hvName(id){const m=memberOf(id);return m?esc(m.name):''}
+function hvNames(ids){return [...new Set(ids||[])].map(memberOf).filter(Boolean).map(m=>esc(shortName(m.name))).join(', ')}
+function hvDesc(s){s=String(s||'').trim();return s?`<div class="hv-d">${esc(s.length>180?s.slice(0,180)+'…':s)}</div>`:''}
+function hvContent(act,id,key){const t=today();
+ if(key==='tip'){const el=hv.cur;return el?`<div class="hv-d" style="margin:0">${esc(el.dataset.tip||'')}</div>`:''}
+ if(key&&key.startsWith('prog:')){const[,k,mine]=key.split(':');const its=S.inits.filter(i=>progKeyOf(i)===k&&(!mine||i.ownerId===myId()||coOwns(i)));if(!its.length)return '';const s=progStats(its);
+  return `<div class="hv-k">Programme${mine?' · yours':''}</div><div class="hv-t">${esc(progName(k))}</div>${statusStrip(s.status,6)}<div class="hv-list">${its.slice(0,8).map(i=>`<div><span class="dot" style="background:${INIT_STATUS_COL[i.status]||'#64748b'}"></span>${esc(shortInitName(i))}<em>${initProg(i)!=null?initProg(i)+'%':esc(i.status)}</em></div>`).join('')}${its.length>8?`<div class="muted">+${its.length-8} more</div>`:''}</div>${hvBar(s.avg,'var(--p)')}`}
+ if(act==='openInit'){const i=S.inits.find(x=>x.id===id);if(!i)return '';const c=KIND_COL(i.kind);const nx=(i.milestones||[]).filter(m=>!m.done).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'))[0];
+  return `<div class="hv-k" style="color:${c}">${esc(i.kind)}${progKeyOf(i)?' · '+esc(progName(progKeyOf(i))):''}</div><div class="hv-t">${esc(shortInitName(i))}</div>${hvDesc(i.description)}
+  ${hvRow('Status',`<span style="color:${INIT_STATUS_COL[i.status]}">${esc(i.status)}</span>`)}${hvRow('Stage',esc(i.stage||''))}${hvRow('Owner',hvName(i.ownerId)||'<span class="od">Not set</span>')}${hvRow('Team',esc(teamOf(i.teamId)?.name||''))}${hvRow('Target',okDate(i.targetDate)?fmtDate(i.targetDate):'')}${hvRow('Next milestone',nx?esc(nx.title)+(okDate(nx.due)?' · '+fmtDay(nx.due):''):'')}${hvBar(initProg(i),c)}`}
+ if(act==='openTask'){const x=S.tasks.find(y=>y.id===id);if(!x)return '';const od=isOverdue(x);
+  return `<div class="hv-k" style="color:${STATUS_COL[stKey(x.status)]}">Task · ${esc((STATUSES.find(s=>s[0]===stKey(x.status))||[])[1]||x.status)}</div><div class="hv-t">${esc(x.title)}</div>${hvDesc(x.description)}
+  ${hvRow('Doing it',hvNames(x.assigneeIds))}${hvRow('Owner',hvName(x.ownerId))}${hvRow('Due',okDate(x.due)?`<span class="${od?'od':''}">${fmtDay(x.due)}${od?' · overdue':''}</span>`:'')}${hvRow('Priority',esc(x.priority||''))}${hvRow('Next step',esc(x.nextStep||''))}${x.blocked?hvRow('Blocked',`<span class="od">${esc(x.blocked)}</span>`):''}${hvBar(progOf(x),STATUS_COL[stKey(x.status)])}`}
+ if(act==='openChk'){const c=(S.checks||[]).find(y=>y.id===id);if(!c)return '';const b=S.batches.find(y=>y.id===c.batchId);const tr=chkTrack(c.track);const st=CHK_ST.find(s=>s[0]===c.status)||CHK_ST[0];const late=chkLate(c);
+  return `<div class="hv-k" style="color:${tr.c}">${tr.icon} ${esc(tr.name)} checklist</div><div class="hv-t">${esc(c.title)}</div>${hvDesc(c.description)}
+  ${hvRow('Batch',esc(b?.name||''))}${hvRow('Phase',esc(c.phase||''))}${hvRow('Owner',hvName(c.ownerId)||'<span class="od">Not set</span>')}${hvRow('Due',okDate(c.due)?`<span class="${late?'od':''}">${fmtDay(c.due)}${late?' · late':''}</span>`:'')}${hvRow('Status',`<span style="color:${st[2]}">${st[1]}</span>`)}${hvRow('Next step',esc(c.nextStep||''))}`}
+ if(act==='openBatch'){const b=S.batches.find(y=>y.id===id);if(!b)return '';const ck=(S.checks||[]).filter(i=>i.batchId===b.id);const p=ck.length?chkPct(ck):null;const late=ck.filter(chkLate).length;
+  return `<div class="hv-k">Batch · ${esc(batchStatus(b))}</div><div class="hv-t">${esc(b.name)}</div>${hvRow('Course',esc(b.course||''))}${hvRow('Dates',okDate(b.start)?fmtDate(b.start)+' – '+fmtDate(b.end):'')}${hvRow('Students',b.students?esc(b.students):'')}${hvRow('Coordinator',hvName(b.coordinatorId))}${ck.length?hvRow('Checklist',`${ck.filter(i=>i.status==='done').length}/${ck.length} done${late?` · <span class="od">${late} late</span>`:''}`):''}${hvBar(p,'#16a34a')}`}
+ if(act==='openEvent'){const e=S.events.find(y=>y.id===id);if(!e)return '';
+  return `<div class="hv-k" style="color:${evColor(e)}">${esc(e.type||'Event')}</div><div class="hv-t">${esc(e.title)}</div>${hvDesc(e.description)}${hvRow('When',(okDate(e.date)?fmtDay(e.date):'')+(okDate(e.endDate)&&e.endDate!==e.date?' – '+fmtDay(e.endDate):'')+' · '+evTime(e))}${hvRow('Where',esc(e.location||''))}${hvRow('Teams',(e.teamIds||[]).includes('all')?'All teams':esc((e.teamIds||[]).map(x=>teamOf(x)?.name).filter(Boolean).join(', ')))}${hvRow('Coordinator',hvName(e.coordinatorId)||esc(e.coordinator||''))}${hvRow('People',hvNames(e.attendeeIds))}`}
+ if(act==='openPerson'){const m=memberOf(id);if(!m)return '';const st=memberStats(m.id);const ck=(S.checks||[]).filter(i=>i.ownerId===m.id&&chkOpen(i));const own=S.inits.filter(i=>i.ownerId===m.id&&!['Completed'].includes(i.status));const away=S.leaves.find(l=>okDate(l.from)&&l.from<=t&&l.to>=t&&l.memberId===m.id);
+  return `<div class="hv-p">${avatar(m,'lg')}<div><div class="hv-t" style="margin:0">${esc(m.name)}</div><div class="xs muted">${esc(m.designation||ROLES[m.role]||'')}</div></div></div>${m.statusText||m.statusEmoji?`<div class="hv-d">${esc(m.statusEmoji||'')} ${esc(m.statusText||'')}</div>`:''}${away?`<div class="hv-d od">On ${esc(away.type)} today</div>`:''}
+  ${hvRow('Teams',esc((m.teamIds||[]).map(x=>teamOf(x)?.name).filter(Boolean).join(', ')))}${hvRow('Open tasks',String(st.open.length)+(st.overdue.length?` · <span class="od">${st.overdue.length} overdue</span>`:''))}${ck.length?hvRow('Checklist items',`${ck.length} open${ck.filter(chkLate).length?` · <span class="od">${ck.filter(chkLate).length} late</span>`:''}`):''}${own.length?hvRow('Owns',esc(joinNames(own.map(shortInitName)))):''}`}
+ return ''}
+function joinNames(a){return a.length>3?a.slice(0,3).join(', ')+` +${a.length-3}`:a.join(', ')}
+function hvHide(){clearTimeout(hv.t);hv.cur=null;if(hv.el)hv.el.hidden=true}
+function hvShow(target){const key=target.dataset.hover||'';const html=hvContent(target.dataset.act,target.dataset.id,key);if(!html)return;const box=hvBox();box.innerHTML=html;box.hidden=false;
+ const r=target.getBoundingClientRect();const bw=box.offsetWidth,bh=box.offsetHeight;const vw=innerWidth,vh=innerHeight;
+ let x=r.left+Math.min(24,r.width/2);if(x+bw>vw-10)x=Math.max(10,r.right-bw);let y=r.bottom+8;if(y+bh>vh-10)y=Math.max(10,r.top-bh-8);
+ box.style.left=x+'px';box.style.top=y+'px'}
+const HV_SEL='[data-hover],[data-act="openInit"][data-id],[data-act="openTask"][data-id],[data-act="openChk"][data-id],[data-act="openBatch"][data-id],[data-act="openEvent"][data-id],[data-act="openPerson"][data-id]';
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+ document.addEventListener('mouseover',e=>{if(e.target.closest('.hovcard,.overlay,.menu'))return;const t=e.target.closest(HV_SEL);if(!t){if(hv.cur)hvHide();return}if(t===hv.cur)return;
+  hvHide();if(pref('hover',true)===false)return;hv.cur=t;hv.t=setTimeout(()=>{if(hv.cur===t&&document.contains(t))hvShow(t)},420)});
+ document.addEventListener('mousedown',hvHide,true);addEventListener('scroll',hvHide,true);addEventListener('keydown',hvHide,true);addEventListener('blur',hvHide);
+}
+
+/* Initiatives page: Mission 2030 (and any other programme) on its own tab, separate from the other initiatives */
+function initTabs(pm,tab){if(!pm.size)return '';const others=S.inits.filter(i=>!pm.has(progKeyOf(i))).length;
+ return `<div class="toggle itabs" style="margin-bottom:14px"><button class="${!tab?'on':''}" data-act="itab" data-v="">Initiatives <span class="c">${others}</span></button>${[...pm.entries()].map(([k,v])=>`<button class="${tab===k?'on':''}" data-act="itab" data-v="${esc(k)}" data-hover="prog:${esc(k)}">${esc(progName(k))} <span class="c">${v.length}</span></button>`).join('')}</div>`}
+ACT.itab=el=>{S.ui.itab=el.dataset.v;render()};
+
+/* ---------------- lighter text ----------------
+   Long page explanations shrink to one line with an ⓘ; the full text shows on hover. */
+function lighten(root){root.querySelectorAll('.small.muted[style*="margin:-"]').forEach(el=>{if(el.dataset.lt)return;const t=el.textContent.trim();if(t.length<90||el.querySelector('button,select,input'))return;
+ el.dataset.lt=1;el.classList.add('intro-tip');el.dataset.hover='tip';el.dataset.tip=t;el.setAttribute('title','')})}
+
+/* ---------------- guided tour ---------------- */
+const TOUR=[
+ {t:'Welcome to Ekatra 👋',d:'A quick look around. It takes about a minute. Skip any time and replay it from the ? button.'},
+ {sel:'#nav [data-route="home"]',route:'home',t:'Home',d:'Your day at a glance: what is due, what needs you and what is coming up this week.'},
+ {sel:'#createBtn',t:'Create',d:'Add a task, event, reminder, participation or initiative from here.'},
+ {sel:'.gs',t:'Search & quick actions',d:'Press Ctrl K to jump anywhere. You can also type “assign Sahil viva questions friday”.'},
+ {sel:'#nav [data-route="tasks"]',route:'tasks',t:'My work',d:'Today, tomorrow, the rest of the week and Ekatra’s suggestions for what to do next.'},
+ {sel:'#nav [data-route="calendar"]',t:'Calendar',d:'Sessions, events, exams and reminders for every team in one calendar.'},
+ {sel:'#nav [data-route="readiness"]',t:'Batch readiness',d:'Each team’s checklist for every batch. Tick items as they are done.'},
+ {sel:'.itabs',route:'initiatives',t:'Initiatives & Mission 2030',d:'Products and projects under Initiatives; all Mission 2030 work on its own tab.'},
+ {sel:'.tcardx',route:'initiatives',t:'Hover to preview',d:'Rest the mouse on any card, task or person to see its details without opening it.'},
+ {sel:'#bellBtn',t:'Next 24 hours',d:'Meetings and reminders coming up soon. Ekatra also pops them up on time.'},
+ {sel:'#meBox',t:'You',d:'Your profile, status, colours and password. “Take the tour” is here too.'},
+ {t:'You’re all set ✨',d:'Replay this tour any time from the ? button at the top.',end:true}];
+const tour={i:0,on:false,el:null};
+const tourKey=()=>'tourDone:'+(myId()||'x');
+function maybeTour(){if(store.get(tourKey(),false))return false;startTour(false);return true}
+function startTour(){hvHide();if(openMenu)closeMenu();tour.i=0;tour.on=true;if(!tour.el){tour.el=document.createElement('div');tour.el.className='tour';document.body.appendChild(tour.el);
+  tour.el.addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(!b)return;const a=b.dataset.t;if(a==='next')tourGo(tour.i+1);else if(a==='back')tourGo(tour.i-1);else endTour()})}
+ tour.el.hidden=false;tourGo(0)}
+function endTour(){tour.on=false;store.set(tourKey(),true);if(tour.el)tour.el.hidden=true;if(S.route!=='home')go('home')}
+function tourStepOk(s){if(!s.sel)return true;const el=document.querySelector(s.sel);return el&&el.offsetParent!==null}
+function tourGo(i){const dir=i<tour.i?-1:1;if(i<0)i=0;if(i>=TOUR.length){endTour();return}const s=TOUR[i];tour.i=i;
+ if(s.route&&S.route!==s.route){S.ui.initOpen=null;go(s.route)}
+ setTimeout(()=>{if(!tour.on)return;if(!tourStepOk(s)&&!s.end&&s.sel){tour.i=i;if(dir<0&&i>0){tour.i=i+1;tourGo(i-1)}else{tour.i=i-1;tourGo(i+1)}return}tourDraw(s);setTimeout(()=>{if(tour.on&&tour.i===i)tourDraw(s,true)},550)},s.route?380:30)}
+function tourDraw(s,still){const el=s.sel?document.querySelector(s.sel):null;let r=el?el.getBoundingClientRect():null;if(el)el.scrollIntoView({block:'nearest'});if(el)r=el.getBoundingClientRect();
+ const n=TOUR.length;const pad=6;
+ const hole=r?`<div class="tour-hole" style="left:${r.left-pad}px;top:${r.top-pad}px;width:${r.width+pad*2}px;height:${r.height+pad*2}px"></div>`:'<div class="tour-dim"></div>';
+ const dots=TOUR.map((_,k)=>`<i class="${k===tour.i?'on':''}"></i>`).join('');
+ tour.el.innerHTML=`${hole}<div class="tour-pop ${r?'':'center'} ${still?'still':''}" role="dialog" aria-label="${esc(s.t)}"><div class="tour-step">${tour.i+1} of ${n}</div><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p>
+ <div class="tour-f"><div class="tour-dots">${dots}</div><span style="flex:1"></span>${s.end?'':'<button class="btn sm ghost" data-t="skip">Skip tour</button>'}${tour.i>0?'<button class="btn sm" data-t="back">Back</button>':''}<button class="btn sm pri" data-t="next">${s.end?'Done':tour.i===0?'Start':'Next'}</button></div></div>`;
+ const pop=tour.el.querySelector('.tour-pop');if(r){const pw=pop.offsetWidth,ph=pop.offsetHeight;let x=r.right+16,y=r.top;
+  if(x+pw>innerWidth-12){x=Math.max(12,Math.min(r.left,innerWidth-pw-12));y=r.bottom+14;if(y+ph>innerHeight-12)y=Math.max(12,r.top-ph-14)}
+  if(y+ph>innerHeight-12)y=innerHeight-ph-12;pop.style.left=x+'px';pop.style.top=Math.max(12,y)+'px'}
+ pop.querySelector('[data-t="next"]').focus()}
+document.addEventListener('keydown',e=>{if(!tour.on)return;if(e.key==='Escape'){e.stopImmediatePropagation();endTour()}else if(e.key==='ArrowRight')tourGo(tour.i+1);else if(e.key==='ArrowLeft')tourGo(tour.i-1)},true);
+addEventListener('resize',()=>{if(tour.on)tourDraw(TOUR[tour.i],true)});
+ACT.tour=()=>startTour(true);
 </script>
 </body></html>
